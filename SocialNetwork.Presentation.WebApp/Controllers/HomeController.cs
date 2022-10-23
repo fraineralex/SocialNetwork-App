@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SocialNetworkApp.Models;
+using SocialNetwork.Presentation.WebApp.Models;
 using System.Diagnostics;
 
-namespace SocialNetworkApp.Controllers.Home
+namespace SocialNetwork.Presentation.WebApp.Controllers
 {
     public class HomeController : Controller
     {
@@ -18,6 +18,10 @@ namespace SocialNetworkApp.Controllers.Home
             return View();
         }
 
+        public IActionResult Privacy()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
