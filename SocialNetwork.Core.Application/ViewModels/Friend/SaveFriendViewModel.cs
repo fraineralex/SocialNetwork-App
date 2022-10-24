@@ -1,5 +1,5 @@
 ﻿
-namespace SocialNetwork.Core.Application.Friends
+namespace SocialNetwork.Core.Application.ViewModels.Friend
 {
     public class SaveFriendViewModel
     {

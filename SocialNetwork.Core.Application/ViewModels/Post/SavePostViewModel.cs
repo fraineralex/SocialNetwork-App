@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
-using SocialNetwork.Core.Application.Comment;
+using SocialNetwork.Core.Application.ViewModels.Comment;
 using System.ComponentModel.DataAnnotations;
 
-namespace SocialNetwork.Core.Application.Posts
+namespace SocialNetwork.Core.Application.Post
 {
     public class SavePostViewModel
     {

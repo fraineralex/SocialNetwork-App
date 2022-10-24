@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -15,10 +15,6 @@
   <ItemGroup>
     <ProjectReference Include="..\SocialNetwork.Core.Application\SocialNetwork.Core.Application.csproj" />
     <ProjectReference Include="..\SocialNetwork.Core.Domain\SocialNetwork.Core.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Repositories\" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace SocialNetwork.Core.Application.Comment
+﻿namespace SocialNetwork.Core.Application.ViewModels.Comment
 {
     public class CommentViewModel
     {

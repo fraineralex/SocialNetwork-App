@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
-namespace SocialNetwork.Core.Application.Auth
+namespace SocialNetwork.Core.Application.ViewModels.Auth
 {
     public class SaveUserViewModel
     {
