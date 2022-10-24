@@ -13,26 +13,26 @@ namespace SocialNetwork.Infrastructure.Persistence.Context
         public DbSet<Users>? Users { get; set; }
         public DbSet<Friends>? Friends { get; set; }
 
-        //public override Posts<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
-        //{
-        //    foreach(var entry in ChangeTracker.Entries<AuditableBaseEntity>())
-        //    {
-        //        switch (entry.State)
-        //        {
-        //            case EntityState.Added:
-        //                entry.Entity.Created = DateTime.Now;
-        //                entry.Entity.CreateBy = "DefaultAppUser";
-        //                break;
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+            foreach (var entry in ChangeTracker.Entries<AuditableBaseEntity>())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        entry.Entity.Created = DateTime.Now;
+                        entry.Entity.CreateBy = "DefaultAppUser";
+                        break;
 
-        //            case EntityState.Modified:
-        //                entry.Entity.LastModified = DateTime.Now;
-        //                entry.Entity.LastModifiedBy = "DefaultAppUser";
-        //                break;
-        //        }
-        //    }
+                    case EntityState.Modified:
+                        entry.Entity.LastModified = DateTime.Now;
+                        entry.Entity.LastModifiedBy = "DefaultAppUser";
+                        break;
+                }
+            }
 
-        //    return base.SaveChangesAsync(cancellationToken);
-        //}
+            return base.SaveChangesAsync(cancellationToken);
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,4 +1,6 @@
+using SocialNetwork.Core.Application;
 using SocialNetwork.Infrastructure.Persistence;
+using SocialNetwork.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,10 +11,10 @@ builder.Services.AddSession();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddPersistenceInfrastructure(builder.Configuration);
-//builder.Services.AddApplicationLayer();
+builder.Services.AddApplicationLayer();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-//builder.Services.AddTransient<ValidateUserSession, ValidateUserSession>();
+builder.Services.AddTransient<ValidateUserSession, ValidateUserSession>();
 
 var app = builder.Build();
 
@@ -35,6 +37,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=User}/{action=Index}/{id?}");
 
 app.Run();

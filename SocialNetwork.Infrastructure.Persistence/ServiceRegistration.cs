@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SocialNetwork.Core.Application.Interfaces.Repositories;
+using SocialNetwork.Infrastructure.Persistence.Repositories;
 
 namespace SocialNetwork.Infrastructure.Persistence
 {
@@ -23,12 +25,13 @@ namespace SocialNetwork.Infrastructure.Persistence
     }
             #endregion
 
-            //#region repositories
-            //services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            //services.AddTransient<IAdsRepository, AdRepository>();
-            //services.AddTransient<ICategoriesRepository, CategoryRepository>();
-            //services.AddTransient<IUsersRepository, UserRepository>();
-            //#endregion
+            #region repositories
+            services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddTransient<IPostsRepository, PostRepository>();
+            services.AddTransient<ICommentsRepository, CommentRepository>();
+            services.AddTransient<IUsersRepository, UserRepository>();
+            services.AddTransient<IFriendsRepository, FriendRepository>();
+            #endregion
         }
     }
 }

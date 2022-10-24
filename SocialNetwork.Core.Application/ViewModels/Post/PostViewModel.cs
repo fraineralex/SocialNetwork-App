@@ -1,4 +1,4 @@
-﻿namespace SocialNetwork.Core.Application.Post
+﻿namespace SocialNetwork.Core.Application.ViewModels.Post
 {
     public class PostViewModel
     {

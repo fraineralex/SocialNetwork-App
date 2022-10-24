@@ -18,8 +18,4 @@
     <ProjectReference Include="..\SocialNetwork.Core.Domain\SocialNetwork.Core.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Interfaces\Services\" />
-  </ItemGroup>
-
 </Project>

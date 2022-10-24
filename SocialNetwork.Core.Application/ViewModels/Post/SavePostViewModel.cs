@@ -2,7 +2,7 @@
 using SocialNetwork.Core.Application.ViewModels.Comment;
 using System.ComponentModel.DataAnnotations;
 
-namespace SocialNetwork.Core.Application.Post
+namespace SocialNetwork.Core.Application.ViewModels.Post
 {
     public class SavePostViewModel
     {
