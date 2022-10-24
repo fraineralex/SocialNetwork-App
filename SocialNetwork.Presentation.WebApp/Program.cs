@@ -1,7 +1,18 @@
+using SocialNetwork.Infrastructure.Persistence;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession();
+
 builder.Services.AddControllersWithViews();
+builder.Services.AddPersistenceInfrastructure(builder.Configuration);
+//builder.Services.AddApplicationLayer();
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+//builder.Services.AddTransient<ValidateUserSession, ValidateUserSession>();
 
 var app = builder.Build();
 
@@ -17,6 +28,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseSession();
 
 app.UseAuthorization();
 

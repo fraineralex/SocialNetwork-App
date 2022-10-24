@@ -7,43 +7,74 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/SocialNetwork.Presentation.WebApp.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/layout-style.css" asp-append-version="true" />
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SocialNetwork.Presentation.WebApp</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+    <div class="sidebar">
+        <div class="logo-details">
+            <i class='bx bx-notepad icon'></i>
+            <div class="logo_name">To Do List</div>
+            <i class='bx bx-menu' id="btn"></i>
+        </div>
+
+        <li>
+            <i class='bx bx-search'></i>
+            <input type="text" placeholder="Search...">
+            <span class="custom-tooltip">Search</span>
+        </li>
+        <li>
+            <a href="/home" class="bg-light">
+                <i class='bx bx-home-alt text-dark'></i>
+                <span class="links_name text-dark">Home</span>
+            </a>`
+            <span class="custom-tooltip">Home</span>
+        </li>
+        <li>
+            <a href="/completed-tasks" class="">
+                <i class='bx bx-check-square'></i>
+                <span class="links_name">Friends</span>
+            </a>
+            <span class="custom-tooltip">Friends</span>
+        </li>
+
+        <li>
+            <a href="/user-information" class="">
+                <i class='bx bx-user'></i>
+                <span class="links_name">User</span>
+            </a>
+            <span class="custom-tooltip">User</span>
+        </li>
+        <li class="profile">
+            <div class="profile-details">
+                <img src="/images/profile.jpg" alt="profileImg">
+                <div class="name_job">
+                    <div class="name"><small>Frainer Alexander</small></div>
+                    <div class="job">frainer.alex</div>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+            <a href="/logout"><i class='bx bx-log-out' id="log_out"></i></a>
+        </li>
+    </div>
+
+    <section class="home-section">
+        <main role="main" class="container pb-3">
             @RenderBody()
         </main>
-    </div>
+    </section>
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - SocialNetwork.Presentation.WebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; @DateTime.Now.Year Social Network App - Designed whit 💙 by Frainer Alexander
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/layoutScript.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

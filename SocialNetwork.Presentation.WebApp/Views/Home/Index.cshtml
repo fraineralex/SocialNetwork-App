@@ -2,7 +2,21 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="text-center container">
+        <div class="row">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-bold mt-4 text-white"><i class='bx bxs-home'></i> Tasks</h1>
+                <p class="lead text text-secondary mt-1">Welcome to your task list, here we will show you all the tasks
+                    you have created.
+                </p>
+                <p>
+                    <a class="btn btn-lg btn-primary mt-1 new-task"><i class='bx bx-task'></i> Create new
+                        task</a>
+                    <input id="_csrf" type="hidden" name="_csrf" value="{{csrfToken}}">
+                </p>
+            </div>
+
+            <div class="row mx-auto mt-4">
+            </div>
+        </div>
+    </section>
