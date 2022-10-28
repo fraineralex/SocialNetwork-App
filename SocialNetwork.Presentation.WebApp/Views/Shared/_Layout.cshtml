@@ -12,12 +12,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/styles.min.css" asp-append-version="true" />
 </head>
 <body>
     <div class="sidebar">
         <div class="logo-details">
             <i class='bx bx-notepad icon'></i>
-            <div class="logo_name">To Do List</div>
+            <div class="logo_name">Social Network</div>
             <i class='bx bx-menu' id="btn"></i>
         </div>
 
@@ -27,28 +28,28 @@
             <span class="custom-tooltip">Search</span>
         </li>
         <li>
-            <a href="/home" class="bg-light">
+            <a asp-controller="Home" asp-action="Home" class="bg-light">
                 <i class='bx bx-home-alt text-dark'></i>
                 <span class="links_name text-dark">Home</span>
-            </a>`
+            </a>
             <span class="custom-tooltip">Home</span>
         </li>
         <li>
-            <a href="/completed-tasks" class="">
+            <a asp-controller="Friend" asp-action="Index" class="">
                 <i class='bx bx-check-square'></i>
                 <span class="links_name">Friends</span>
             </a>
             <span class="custom-tooltip">Friends</span>
         </li>
-
         <li>
-            <a href="/user-information" class="">
+            <a asp-controller="User" asp-action="ProfileSettings" class="">
                 <i class='bx bx-user'></i>
-                <span class="links_name">User</span>
+                <span class="links_name">Profile</span>
             </a>
-            <span class="custom-tooltip">User</span>
+            <span class="custom-tooltip">Profile</span>
         </li>
         <li class="profile">
+            <span class="custom-tooltip">Search</span>
             <div class="profile-details">
                 <img src="/Images/profile.jpg" alt="profileImg">
                 <div class="name_job">
@@ -56,7 +57,7 @@
                     <div class="job">frainer.alex</div>
                 </div>
             </div>
-            <a href="/logout"><i class='bx bx-log-out' id="log_out"></i></a>
+            <a asp-controller="User" asp-action="Logout"><i class='bx bx-log-out' id="log_out"></i></a>
         </li>
     </div>
 
@@ -66,8 +67,8 @@
         </main>
     </section>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
+    <footer class="border-top footer text-white bg-dark text-center">
+        <div class="container text-center">
             &copy; @DateTime.Now.Year Social Network App - Designed whit 💙 by Frainer Alexander
         </div>
     </footer>
