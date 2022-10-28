@@ -17,7 +17,7 @@ namespace SocialNetwork.Core.Application.ViewModels.Post
         [Required(ErrorMessage = "The posts must be a user id")]
         public int UserId { get; set; }
 
-    public List<CommentViewModel>? CommentsList { get; set; }
+        public List<CommentViewModel>? Comments { get; set; }
 
         public IFormFile? ImageFile { get; set; }
 

@@ -1,4 +1,5 @@
-﻿
+﻿using SocialNetwork.Core.Application.ViewModels.Auth;
+
 namespace SocialNetwork.Core.Application.ViewModels.Friend
 {
     public class SaveFriendViewModel
@@ -12,5 +13,7 @@ namespace SocialNetwork.Core.Application.ViewModels.Friend
         public bool? IsAccepted { get; set; }
 
         public DateTime? CreatedAt { get; set; }
+
+        public UserViewModel? Users { get; set; }
     }
 }

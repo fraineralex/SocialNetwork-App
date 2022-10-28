@@ -1,4 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
+using SocialNetwork.Core.Application.ViewModels.Comment;
+using SocialNetwork.Core.Application.ViewModels.Friend;
+using SocialNetwork.Core.Application.ViewModels.Post;
+using SocialNetwork.Core.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
 
 namespace SocialNetwork.Core.Application.ViewModels.Auth
@@ -41,5 +45,10 @@ namespace SocialNetwork.Core.Application.ViewModels.Auth
         public bool? IsActive { get; set; }
 
         public IFormFile? FileImage { get; set; }
+
+        //Navigation property
+        public ICollection<PostViewModel>? Posts { get; set; }
+        public ICollection<CommentViewModel>? Comments { get; set; }
+        public ICollection<FriendViewModel>? Friends { get; set; }
     }
 }

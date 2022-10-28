@@ -20,9 +20,10 @@ namespace SocialNetwork.Infrastructure.Persistence.Repositories
             await _dbContext.SaveChangesAsync();
             return entity;
         }
-        public async Task UpdateAsync(Entity entity) 
+        public async Task UpdateAsync(Entity entity, int id) 
         {
-            _dbContext.Entry(entity).State = EntityState.Modified;
+            var entry = await _dbContext.Set<Entity>().FindAsync(id);
+            _dbContext.Entry(entry).CurrentValues.SetValues(entity);
             await _dbContext.SaveChangesAsync();
         }
         public async Task DeleteAsync(Entity entity)

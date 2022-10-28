@@ -1,9 +1,10 @@
 ﻿
+using SocialNetwork.Core.Domain.Common;
+
 namespace SocialNetwork.Core.Domain.Entities
 {
-    public class Users
+    public class Users : AuditableBaseEntity
     {
-        public int Id { get; set; }
         public string? Name { get; set; }
         public string? LastName { get; set; }
         public string? ProfileImage { get; set; }
