@@ -28,8 +28,11 @@ namespace SocialNetwork.Presentation.WebApp.Controllers
                 return RedirectToRoute(new { controller = "User", action = "Index" });
             }
 
-            ViewBag.Page = "Create post";
-            return View("SavePost");
+            SavePostViewModel saveVm = new();
+
+            ViewBag.Page = "home";
+            ViewBag.Edit = true;
+            return View("SavePost", saveVm);
         }
 
         [HttpPost]
@@ -84,8 +87,9 @@ namespace SocialNetwork.Presentation.WebApp.Controllers
             }
 
             ViewBag.Page = "home";
+            ViewBag.Edit = true;
             SavePostViewModel savepostViewModel = await _postService.GetSaveViewModelById(id);
-            return View("SaveAd", savepostViewModel);
+            return View("SavePost", savepostViewModel);
         }
 
         [HttpPost]

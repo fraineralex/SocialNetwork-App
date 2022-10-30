@@ -56,7 +56,7 @@ namespace SocialNetwork.Core.Application.Helpers
             }
             else
             {
-                if (isEditMode && file == null)
+                if (isEditMode)
                 {
                     return imageURL;
                 }
