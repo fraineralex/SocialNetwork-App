@@ -2,9 +2,10 @@
 
 namespace SocialNetwork.Core.Application.Interfaces.Services
 {
-    public interface IGenericService<ViewModel, SaveViewModel>
-        where ViewModel : class
+    public interface IGenericService<SaveViewModel, ViewModel, Model>
         where SaveViewModel : class
+        where ViewModel : class
+        where Model : class
     {
         Task<List<ViewModel>> GetAllViewModel();
         Task<SaveViewModel> Add(SaveViewModel vm);

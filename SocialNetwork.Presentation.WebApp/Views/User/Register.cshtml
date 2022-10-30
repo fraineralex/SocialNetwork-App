@@ -20,6 +20,7 @@
 
                         <h2 class="fw-bold mb-3 text-uppercase text-center mt-2">Register</h2>
                         <p class="text-white-50 fs-5 mb-3 text-center">Please fill in all the fields below!</p>
+                        @Html.ValidationMessage("singUpVaidation", "",new{@class = "text-danger text-center fw-bold fs-5 mb-3"}, "h4")
 
                         <form asp-action="Register" asp-controller="User" method="POST" EncType="multipart/form-data">
 
@@ -38,10 +39,10 @@
                             </div>
 
                             <div class="p-3 pt-0">
-                                <label asp-for="ProfileImagePath" class="form-label text-white"><strong>Profile Image<small class="text-danger"> *</small></strong></strong></label>
+                                <label asp-for="FileImage" class="form-label text-white"><strong>Profile Image<small class="text-danger"> *</small></strong></strong></label>
                                 <input type="file" class="form-control bg-dark text-white border-white form-control-lg"
-                                       asp-for="ProfileImagePath">
-                                <span asp-validation-for="ProfileImagePath" class="text-danger"></span>
+                                       asp-for="FileImage" accept="image/*">
+                                <span asp-validation-for="FileImage" class="text-danger"></span>
                             </div>
 
                             <div class="p-3 pt-0">

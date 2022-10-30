@@ -87,8 +87,7 @@ namespace SocialNetwork.Infrastructure.Persistence.Context
                 .IsRequired();
 
             modelBuilder.Entity<Posts>()
-                .Property(post => post.ImagePath)
-                .IsRequired();
+                .Property(post => post.ImagePath);
 
             modelBuilder.Entity<Posts>()
                 .Property(post => post.UserId)
@@ -129,8 +128,7 @@ namespace SocialNetwork.Infrastructure.Persistence.Context
                 .HasMaxLength(100);
 
             modelBuilder.Entity<Users>()
-                .Property(user => user.ProfileImage)
-                .IsRequired();
+                .Property(user => user.ProfileImage);
 
             modelBuilder.Entity<Users>()
                 .Property(user => user.Email)

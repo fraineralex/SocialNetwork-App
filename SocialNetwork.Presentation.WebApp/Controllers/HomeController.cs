@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SocialNetwork.Core.Application.Interfaces.Services;
+using SocialNetwork.Middlewares;
 using SocialNetwork.Presentation.WebApp.Models;
 using System.Diagnostics;
 
@@ -6,24 +8,38 @@ namespace SocialNetwork.Presentation.WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IPostsService _postService;
+        private readonly ValidateUserSession _validateUserSession;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IPostsService postService, ValidateUserSession validateUserSession)
         {
-            _logger = logger;
+            _postService = postService;
+            _validateUserSession = validateUserSession;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            if (!_validateUserSession.HasUser())
+            {
+                return RedirectToRoute(new { controller = "User", action = "Index" });
+            }
+
+            ViewBag.Page = "home";
+            return View(await _postService.GetAllViewModelWithInclude());
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public async Task<IActionResult> SeeAllComments(int id)
         {
-            return View();
+            if (!_validateUserSession.HasUser())
+            {
+                return RedirectToRoute(new { controller = "User", action = "Index" });
+            }
+
+            ViewBag.Page = "home";
+            return View("SeeAllComments", await _postService.GetAllViewModelWithInclude());
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

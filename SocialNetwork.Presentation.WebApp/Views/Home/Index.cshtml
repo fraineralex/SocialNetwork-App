@@ -1,5 +1,5 @@
 ﻿@using SocialNetwork.Core.Application.ViewModels.Post
-@model PostViewModel
+@model List<PostViewModel>
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -12,7 +12,7 @@
 
     <div class="col-md-6 ms-3">
         <div class="post-box mb-5 bg-dark" aria-live="assertive" aria-atomic="true" style="max-width: 35rem;">
-            <form method="POST" class="needs-validation" action="/new-post">
+            <form class="form-details" asp-controller="AdminPosts" asp-action="CreatePost" method="post">
                 <div class="box-header">
                     <span class="d-image">
                         <img src="/Images/profile.jpg" alt="profile Frainer Alexander" class="mt-1">
@@ -21,31 +21,27 @@
                 </div>
                 <div class="box-body">
                     <div class="">
-                        <input type="hidden" asp-name="AuthorId" value="1">
-                        <label for="post" class="form-label text-white"></label>
+                        <label for="Content" class="form-label text-white"></label>
                         <textarea type="text" class="form-control bg-dark text-white border-light" id="post"
-                            name="Content" placeholder="What're you thinking?" rows="4" required></textarea>
+                                  for="Content" name="Content" placeholder="What're you thinking?" rows="4" required></textarea>
                     </div>
                 </div>
                 <div class="box-footer">
-                    <a type="button" class="btn btn-sm btn-outline-light" href="/new-post-image">
+                    <a type="button" class="btn btn-sm btn-outline-light" asp-controller="AdminPosts" asp-action="Create">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-images" viewBox="0 0 16 16">
+                             class="bi bi-images" viewBox="0 0 16 16">
                             <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
-                            <path
-                                d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z">
+                            <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z">
                             </path>
                         </svg>
                         Foto
                     </a>
                     <button type="submit" class="btn btn-sm btn-primary ms-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-send-plus" viewBox="0 0 16 16">
-                            <path
-                                d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z">
+                             class="bi bi-send-plus" viewBox="0 0 16 16">
+                            <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z">
                             </path>
-                            <path
-                                d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z">
+                            <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z">
                             </path>
                         </svg>
                         Publicar
@@ -54,97 +50,108 @@
             </form>
         </div>
     </div>
+    
+    @if (Model == null || Model.Count == 0)
+    {
+        <h5 class="fs-4 fw-bold text-secondary mt-1 text-center">No post has been found in the system</h5>
+    }
+    else
+    {
+        @foreach (PostViewModel post in Model)
+        {
+            if(post.ImagePath != null){
+
+                <div class="col-md-6 ms-3 mb-3">
+                    <div class="card bg-dark mx-auto" style="width: 40rem; max-height: 70rem;">
+                        <div class="card-header border-dark" style="height: 55px;">
+                            <span class="d-image">
+                                <img src="/Images/profile.jpg" class="me-2 mt-1" alt="profile">
+                            </span>
+                            <small class="me-auto fs-6 text-white"><strong>frainer.alex</strong></small>
+                            <small class="float-end fw-light text-white mt-2">Hace 2 minutos</small>
+                        </div>
+                        <div class="card-body">
+                            <br><small class="fs-6 text-white">@post.Content</small>
+                            <div class="text-center mt-2 post-image">
+                                <img src="@post.ImagePath" class="img-fluid" alt="image">
+                            </div>
+                            <div class="mt-4">
+                                <a type="button" class="btn btn-sm btn-light me-2" href="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z">
+                                        </path>
+                                        <path fill-rule="evenodd"
+                                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z">
+                                        </path>
+                                    </svg>
+                                    Update
+                                </a>
+
+
+                                <a type="button" asp-controller="AdminPosts" asp-action="Delete" asp-route-id="@post.Id" class="btn btn-sm btn-danger">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                                    </svg>
+                                    Delete
+                                </a>
+
+                                <a type="button" class="btn btn-primary float-end" href="">
+                                    <i class="bi bi-chat"></i>
+                                    Comment
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="col-md-6 ms-3 mb-3">
+                    <div class="card bg-dark" style="width: 40rem;">
+                        <div class="card-header border-dark" style="height: 55px;">
+                            <span class="d-image">
+                                <img src="/Images/profile.jpg" class="me-2 mt-1" alt="profile">
+                            </span>
+                            <small class="me-auto fs-6 text-white"><strong>frainer.alex</strong></small>
+                            <small class="float-end fw-light text-white mt-2">Hace 2 minutos</small>
+                        </div>
+                        <div class="card-body">
+                            <p class="fs-5 text-white mt-3">
+                                @post.Content
+                            </p>
+                            <div class="mt-5">
+                                <a type="button" class="btn btn-sm btn-light me-2" href="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z">
+                                        </path>
+                                        <path fill-rule="evenodd"
+                                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z">
+                                        </path>
+                                    </svg>
+                                    Update
+                                </a>
+
+                                <a type="button" asp-controller="AdminPosts" asp-action="Delete" asp-route-id="@post.Id" class="btn btn-sm btn-danger">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                                    </svg>
+                                    Delete
+                                </a>
+
+                                <a type="button" class="btn btn-primary float-end" href="">
+                                    <i class="bi bi-chat"></i>
+                                    Comment
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    }
+
 </main>
-
-<section class="row">
-    <div class="col-md-8 mb-4 mx-auto">
-        <div class="card bg-dark mx-auto" style="width: 40rem;">
-            <div class="card-header border-dark" style="height: 55px;">
-                <span class="d-image">
-                    <img src="/Images/profile.jpg" class="me-2 mt-1" alt="profile">
-                </span>
-                <small class="me-auto fs-6 text-white"><strong>frainer.alex</strong></small>
-                <small class="float-end fw-light text-white mt-2">Hace 2 minutos</small>
-            </div>
-            <div class="card-body">
-                <br><small class="fs-6 text-white">Kreta, ke duro soy</small>
-                <div class="text-center mt-2">
-                    <img src="/Images/profile.jpg" class="img-fluid" alt="image">
-                </div>
-                <div class="mt-4">
-                    <a type="button" class="btn btn-sm btn-light me-2" href="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-pencil-square" viewBox="0 0 16 16">
-                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z">
-                            </path>
-                            <path fill-rule="evenodd"
-                                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z">
-                            </path>
-                        </svg>
-                        Update
-                    </a>
-
-                    <a type="button" href="" class="btn btn-sm btn-danger"
-                       onclick="DeleteConfirm('1', 'post', 'Are you sure you want to delete this post?', 'Post deleted successfully')">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-trash-fill" viewBox="0 0 16 16">
-                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                        </svg>
-                        Delete
-                    </a>
-
-                    <a type="button" class="btn btn-primary float-end" href="">
-                        <i class="bi bi-chat"></i>
-                        Comment
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<section class="row">
-    <div class="col-md-8 mb-4 mx-auto">
-        <div class="card bg-dark mx-auto" style="width: 40rem;">
-            <div class="card-header border-dark" style="height: 55px;">
-                <span class="d-image">
-                    <img src="/Images/profile.jpg" class="me-2 mt-1" alt="profile">
-                </span>
-                <small class="me-auto fs-6 text-white"><strong>frainer.alex</strong></small>
-                <small class="float-end fw-light text-white mt-2">Hace 2 minutos</small>
-            </div>
-            <div class="card-body">
-                <p class="fs-5 text-white mt-3">Kreta, ke duro soy Kreta, ke duro soy Kreta, 
-                    ke duro soy Kreta, ke duro soy Kreta, ke duro soy Kreta, ke duro soy Kreta, 
-                    ke duro soy Kreta, ke duro soy Kreta, ke duro soy Kreta, ke duro soy Kreta, 
-                    ke duro soy Kreta, ke duro soy </p>
-                <div class="mt-5">
-                    <a type="button" class="btn btn-sm btn-light me-2" href="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-pencil-square" viewBox="0 0 16 16">
-                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z">
-                            </path>
-                            <path fill-rule="evenodd"
-                                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z">
-                            </path>
-                        </svg>
-                        Update
-                    </a>
-
-                    <a type="button" href="" class="btn btn-sm btn-danger"
-                       onclick="DeleteConfirm('1', 'post', 'Are you sure you want to delete this post?', 'Post deleted successfully')">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-trash-fill" viewBox="0 0 16 16">
-                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                        </svg>
-                        Delete
-                    </a>
-
-                    <a type="button" class="btn btn-primary float-end" href="">
-                        <i class="bi bi-chat"></i>
-                        Comment
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>

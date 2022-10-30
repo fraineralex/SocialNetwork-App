@@ -3,7 +3,7 @@ using SocialNetwork.Core.Domain.Entities;
 
 namespace SocialNetwork.Core.Application.Interfaces.Services
 {
-    public interface IUsersService : IGenericService<UserViewModel, SaveUserViewModel>
+    public interface IUsersService : IGenericService<SaveUserViewModel, UserViewModel, Users>
     {
         Task<UserViewModel> Login(LoginViewModel loginVm);
         Task<Users> GetAUserByUsernameAsync(string username);

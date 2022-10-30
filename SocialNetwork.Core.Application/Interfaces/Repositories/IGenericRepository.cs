@@ -9,7 +9,6 @@ namespace SocialNetwork.Core.Application.Interfaces.Repositories
         Task DeleteAsync(Entity entity);
         Task<List<Entity>> GetAllAsync();
         Task<Entity> GetByIdAsync(int id);
-
         Task<List<Entity>> GetAllWithIncludeAsync(List<string> properties);
     }
 }

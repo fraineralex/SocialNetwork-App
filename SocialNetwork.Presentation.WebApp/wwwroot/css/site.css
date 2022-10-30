@@ -39,3 +39,16 @@ body {
     height: 300px;
     object-fit: cover;
 }
+
+.warning-img img {
+    height: 120%;
+    width: 80%;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-right: 10px;
+}
+
+.post-image img {
+    max-height: 30rem;
+    width: 100%;
+}

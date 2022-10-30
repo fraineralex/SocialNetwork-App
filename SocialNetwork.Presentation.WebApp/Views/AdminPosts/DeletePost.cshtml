@@ -1,0 +1,29 @@
+﻿@using SocialNetwork.Core.Application.ViewModels.Post
+@model SavePostViewModel
+@{
+    ViewData["Title"] = "Delete Ad";
+}
+    <div class="col-6 offset-4 py-5 mb-5 pe-5 me-5">
+            <div class="card bg-dark mt-5 mb-5" style="border-radius: 1rem;">
+                    <div class="card-body">
+                        <h1 class="text-center fw-bold text-warning">Warning</h1>
+                        <div class="col-6 warning-img mt-0 mx-auto">
+                            <img src="/Images/warning.png" alt="profile"
+                                 class="ms-3">
+                        </div>
+                        <h4 class="fs-5 fw-bold px-2 mb-3 text-white text-center">
+                          Are you sure you want to delete permanently this post?
+                        </h4>
+
+                        <div class="text-center mx-auto">
+                            <a asp-controller="Home" asp-action="Index" class="btn btn-lg btn-info me-2 m-auto ms-2 mt-3">Cancel</a>
+                           
+                            <form method="post" asp-controller="AdminPosts" asp-action="DeletePost" class="d-inline">
+                                <input type="hidden" asp-for="Id" />
+                                <button type="submit" class="btn btn-lg btn-danger mt-3">Delete</button>
+                            </form>
+                        </div>
+
+                    </div>
+            </div>
+    </div>
