@@ -21,7 +21,7 @@ namespace SocialNetwork.Presentation.WebApp.Controllers
             _mapper = mapper;
         }
 
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(string postImage)
         {
             if (!_validateUserSession.HasUser())
             {
@@ -31,7 +31,7 @@ namespace SocialNetwork.Presentation.WebApp.Controllers
             SavePostViewModel saveVm = new();
 
             ViewBag.Page = "home";
-            ViewBag.Edit = true;
+            if(postImage != null) { ViewBag.Image = true; } else { ViewBag.Image = false; };
             return View("SavePost", saveVm);
         }
 
@@ -52,7 +52,7 @@ namespace SocialNetwork.Presentation.WebApp.Controllers
 
             if (postVm != null && SaveViewModel.ImageFile != null)
             {
-                postVm.ImagePath = UploadImage.UploadFile(SaveViewModel.ImageFile, postVm.Id);
+                postVm.ImagePath = UploadImage.UploadFile(SaveViewModel.ImageFile, postVm.UserId);
                 await _postService.Update(postVm, postVm.Id);
             }
 
@@ -79,7 +79,7 @@ namespace SocialNetwork.Presentation.WebApp.Controllers
 
         }
 
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int id, string postImage)
         {
             if (!_validateUserSession.HasUser())
             {
@@ -87,7 +87,7 @@ namespace SocialNetwork.Presentation.WebApp.Controllers
             }
 
             ViewBag.Page = "home";
-            ViewBag.Edit = true;
+            if (postImage != null) { ViewBag.Image = true; } else { ViewBag.Image = false; };
             SavePostViewModel savepostViewModel = await _postService.GetSaveViewModelById(id);
             return View("SavePost", savepostViewModel);
         }
@@ -108,7 +108,7 @@ namespace SocialNetwork.Presentation.WebApp.Controllers
             if(vm.ImagePath != null)
             {
                 SavePostViewModel postVm = await _postService.GetSaveViewModelById(vm.Id);
-                vm.ImagePath = UploadImage.UploadFile(vm.ImageFile, vm.Id, "Posts", true, postVm.ImagePath);
+                vm.ImagePath = UploadImage.UploadFile(vm.ImageFile, vm.UserId, "Posts", true, postVm.ImagePath);
             }
 
             await _postService.Update(vm, vm.Id);

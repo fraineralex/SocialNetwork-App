@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using SocialNetwork.Core.Application.ViewModels.Auth
+@using SocialNetwork.Core.Application.Helpers
+@inject IHttpContextAccessor httpContext;
+@{
+    UserViewModel User = httpContext.HttpContext.Session.Get<UserViewModel>("user");
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,7 +14,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/SocialNetwork.Presentation.WebApp.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/layout-style.css" asp-append-version="true" />
+    @if(User != null){<link rel="stylesheet" href="~/css/layout-style.css" asp-append-version="true" />}
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -15,51 +22,54 @@
     <link rel="stylesheet" href="~/css/styles.min.css" asp-append-version="true" />
 </head>
 <body>
-    <div class="sidebar">
-        <div class="logo-details">
-            <i class='bx bx-notepad icon'></i>
-            <div class="logo_name">Social Network</div>
-            <i class='bx bx-menu' id="btn"></i>
-        </div>
-
-        <li>
-            <i class='bx bx-search'></i>
-            <input type="text" placeholder="Search...">
-            <span class="custom-tooltip">Search</span>
-        </li>
-        <li>
-            <a asp-controller="Home" asp-action="Home" class="bg-light">
-                <i class='bx bx-home-alt text-dark'></i>
-                <span class="links_name text-dark">Home</span>
-            </a>
-            <span class="custom-tooltip">Home</span>
-        </li>
-        <li>
-            <a asp-controller="Friend" asp-action="Index" class="">
-                <i class='bx bx-check-square'></i>
-                <span class="links_name">Friends</span>
-            </a>
-            <span class="custom-tooltip">Friends</span>
-        </li>
-        <li>
-            <a asp-controller="User" asp-action="ProfileSettings" class="">
-                <i class='bx bx-user'></i>
-                <span class="links_name">Profile</span>
-            </a>
-            <span class="custom-tooltip">Profile</span>
-        </li>
-        <li class="profile">
-            <span class="custom-tooltip">Search</span>
-            <div class="profile-details">
-                <img src="/Images/profile.jpg" alt="profileImg">
-                <div class="name_job">
-                    <div class="name"><small>Frainer Alexander</small></div>
-                    <div class="job">frainer.alex</div>
-                </div>
+    @if (User != null)
+    {
+        <div class="sidebar">
+            <div class="logo-details">
+                <i class='bx bx-notepad icon'></i>
+                <div class="logo_name">Social Network</div>
+                <i class='bx bx-menu' id="btn"></i>
             </div>
-            <a asp-controller="User" asp-action="Logout"><i class='bx bx-log-out' id="log_out"></i></a>
-        </li>
-    </div>
+
+            <li>
+                <i class='bx bx-search'></i>
+                <input type="text" placeholder="Search...">
+                <span class="custom-tooltip">Search</span>
+            </li>
+            <li>
+                <a asp-controller="Home" asp-action="Home" class="bg-light">
+                    <i class='bx bx-home-alt text-dark'></i>
+                    <span class="links_name text-dark">Home</span>
+                </a>
+                <span class="custom-tooltip">Home</span>
+            </li>
+            <li>
+                <a asp-controller="Friend" asp-action="Index" class="">
+                    <i class='bx bx-check-square'></i>
+                    <span class="links_name">Friends</span>
+                </a>
+                <span class="custom-tooltip">Friends</span>
+            </li>
+            <li>
+                <a asp-controller="User" asp-action="ProfileSettings" class="">
+                    <i class='bx bx-user'></i>
+                    <span class="links_name">Profile</span>
+                </a>
+                <span class="custom-tooltip">Profile</span>
+            </li>
+            <li class="profile">
+                <span class="custom-tooltip">Search</span>
+                <div class="profile-details">
+                    <img src="@User.ProfileImagePath" alt="profileImg">
+                    <div class="name_job">
+                        <div class="name"><small>@User.Name @User.LastName</small></div>
+                        <div class="job">@User.Username</div>
+                    </div>
+                </div>
+                <a asp-controller="User" asp-action="Logout"><i class='bx bx-log-out' id="log_out"></i></a>
+            </li>
+        </div>
+    }
 
     <section class="home-section">
         <main role="main" class="container">
@@ -69,7 +79,7 @@
 
     <footer class="border-top footer text-white bg-dark text-center">
         <div class="container text-center">
-            &copy; @DateTime.Now.Year Social Network App - Designed whit 💙 by Frainer Alexander
+            &copy; @DateTime.Now.Year Social Network App - Designed with 💙 by Frainer Alexander
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
