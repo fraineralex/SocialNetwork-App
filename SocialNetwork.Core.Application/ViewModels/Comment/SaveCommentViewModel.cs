@@ -7,7 +7,7 @@ namespace SocialNetwork.Core.Application.ViewModels.Comment
 
         public string? Content { get; set; }
 
-        public int? AuthorId { get; set; }
+        public int? UserId { get; set; }
 
         public int? PostId { get; set; }
     }

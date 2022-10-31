@@ -28,18 +28,6 @@ namespace SocialNetwork.Presentation.WebApp.Controllers
             return View(await _postService.GetAllViewModelWithInclude());
         }
 
-        [HttpPost]
-        public async Task<IActionResult> SeeAllComments(int id)
-        {
-            if (!_validateUserSession.HasUser())
-            {
-                return RedirectToRoute(new { controller = "User", action = "Index" });
-            }
-
-            ViewBag.Page = "home";
-            return View("SeeAllComments", await _postService.GetAllViewModelWithInclude());
-        }
-
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

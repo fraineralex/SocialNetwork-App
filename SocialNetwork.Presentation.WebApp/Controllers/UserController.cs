@@ -96,7 +96,7 @@ namespace SocialNetwork.Controllers
 
                 if (userVm != null && userVm.Id != 0)
                 {
-                    userVm.ProfileImagePath = UploadImage.UploadFile(saveUserViewModel.FileImage, userVm.Id, "ProfileImage");
+                    userVm.ProfileImage = UploadImage.UploadFile(saveUserViewModel.FileImage, userVm.Id, "ProfileImage");
                     await _userService.Update(userVm, userVm.Id);
 
                     return RedirectToRoute(new { controller = "User", action = "Index" });

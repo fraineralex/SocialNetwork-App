@@ -12,8 +12,8 @@ using SocialNetwork.Infrastructure.Persistence.Context;
 namespace SocialNetwork.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20221029184625_Remove constraint required to image path fields")]
-    partial class Removeconstraintrequiredtoimagepathfields
+    [Migration("20221031040654_Initial Migration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -52,8 +52,7 @@ namespace SocialNetwork.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
-                        .IsRequired()
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -67,8 +66,11 @@ namespace SocialNetwork.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("SocialNetwork.Core.Domain.Entities.Friends", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime?>("CreatedAt")
                         .IsRequired()
@@ -112,6 +114,9 @@ namespace SocialNetwork.Infrastructure.Persistence.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("FriendsId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
 
@@ -121,11 +126,12 @@ namespace SocialNetwork.Infrastructure.Persistence.Migrations
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
-                        .IsRequired()
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FriendsId");
 
                     b.HasIndex("UserId");
 
@@ -229,6 +235,10 @@ namespace SocialNetwork.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("SocialNetwork.Core.Domain.Entities.Posts", b =>
                 {
+                    b.HasOne("SocialNetwork.Core.Domain.Entities.Friends", null)
+                        .WithMany("Posts")
+                        .HasForeignKey("FriendsId");
+
                     b.HasOne("SocialNetwork.Core.Domain.Entities.Users", "Users")
                         .WithMany("Posts")
                         .HasForeignKey("UserId")
@@ -236,6 +246,11 @@ namespace SocialNetwork.Infrastructure.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("SocialNetwork.Core.Domain.Entities.Friends", b =>
+                {
+                    b.Navigation("Posts");
                 });
 
             modelBuilder.Entity("SocialNetwork.Core.Domain.Entities.Posts", b =>

@@ -1,5 +1,11 @@
 ﻿@using SocialNetwork.Core.Application.ViewModels.Post
 @model List<PostViewModel>
+@using SocialNetwork.Core.Application.ViewModels.Auth
+@using SocialNetwork.Core.Application.Helpers
+@inject IHttpContextAccessor httpContext;
+@{
+    UserViewModel User = httpContext.HttpContext.Session.Get<UserViewModel>("user");
+}
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -10,14 +16,14 @@
         integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <div class="col-md-6 ms-3">
+    <div class="col-md-6 ms-3 mt-0">
         <div class="post-box mb-5 bg-dark" aria-live="assertive" aria-atomic="true" style="max-width: 35rem;">
             <form class="form-details" asp-controller="AdminPosts" asp-action="CreatePost" method="post">
                 <div class="box-header">
                     <span class="d-image">
-                        <img src="/Images/profile.jpg" alt="profile Frainer Alexander" class="mt-1">
+                        <img src="@User.ProfileImage" alt="profile" class="mt-1">
                     </span>
-                    <small class="me-auto fs-6"> <strong>Frainer Alexander</strong></small>
+                    <small class="me-auto fs-6"> <strong>@User.Name @User.LastName</strong></small>
                 </div>
                 <div class="box-body">
                     <div class="">
@@ -65,9 +71,9 @@
                     <div class="card bg-dark mx-auto" style="width: 40rem; max-height: 70rem;">
                         <div class="card-header border-dark" style="height: 55px;">
                             <span class="d-image">
-                                <img src="/Images/profile.jpg" class="me-2 mt-1" alt="profile">
+                                <img src="@post.Users.ProfileImage" class="me-2 mt-1" alt="profile">
                             </span>
-                            <small class="me-auto fs-6 text-white"><strong>frainer.alex</strong></small>
+                            <small class="me-auto fs-6 text-white"><strong>@post.Users.Username</strong></small>
                             <small class="float-end fw-light text-white mt-2">Hace 2 minutos</small>
                         </div>
                         <div class="card-body">
@@ -96,11 +102,36 @@
                                     Delete
                                 </a>
 
-                                <a type="button" class="btn btn-primary float-end" href="">
+                                <a type="button" class="btn btn-primary float-end" asp-controller="AdminPosts" asp-action="AddComment" asp-route-id="@post.Id">
                                     <i class="bi bi-chat"></i>
                                     Comment
                                 </a>
                             </div>
+                            @if(post.Comments.Count != 0)
+                            {
+                                <hr class="text-white mt-4" />
+                                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive"
+                                     aria-atomic="true" style="width: 80%;">
+                                    <div class="card-header " style="height: 40px;">
+                                        <span class="r-image">
+                                            <img src="@post.Comments.First().Users.ProfileImage" class=" me-2"
+                                                 alt="profile">
+                                        </span>
+                                        <small class="me-auto fw-light">@post.Comments.First().Users.Username</small>
+                                        <small class="float-end fw-light text-white">
+                                            Justo ahora
+                                        </small>
+                                    </div>
+                                    <div class="card-body">
+                                        <small class="fw-light">@post.Comments.First().Content</small>
+
+                                        <a type="button"
+                                           class="btn-sm btn-primary float-end ms-1">
+                                            <i class="bi bi-chat-text-fill"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
@@ -111,9 +142,9 @@
                     <div class="card bg-dark" style="width: 40rem;">
                         <div class="card-header border-dark" style="height: 55px;">
                             <span class="d-image">
-                                <img src="/Images/profile.jpg" class="me-2 mt-1" alt="profile">
+                                <img src="@post.Users.ProfileImage" class="me-2 mt-1" alt="profile">
                             </span>
-                            <small class="me-auto fs-6 text-white"><strong>frainer.alex</strong></small>
+                            <small class="me-auto fs-6 text-white"><strong>@post.Users.Username</strong></small>
                             <small class="float-end fw-light text-white mt-2">Hace 2 minutos</small>
                         </div>
                         <div class="card-body">
@@ -146,6 +177,31 @@
                                     Comment
                                 </a>
                             </div>
+                            @if (post.Comments.Count != 0)
+                            {
+                                <hr class="text-white mt-4" />
+                                <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive"
+                                  aria-atomic="true" style="width: 80%;">
+                                    <div class="card-header " style="height: 40px;">
+                                        <span class="r-image">
+                                            <img src="@post.Comments.First().Users.ProfileImage" class=" me-2"
+                                              alt="profile">
+                                        </span>
+                                        <small class="me-auto fw-light">@post.Comments.First().Users.Username</small>
+                                        <small class="float-end fw-light text-white">
+                                            Justo ahora
+                                        </small>
+                                    </div>
+                                    <div class="card-body">
+                                        <small class="fw-light">@post.Comments.First().Content</small>
+
+                                        <a type="button"
+                                            class="btn-sm btn-primary float-end ms-1">
+                                            <i class="bi bi-chat-text-fill"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>

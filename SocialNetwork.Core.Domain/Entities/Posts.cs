@@ -8,10 +8,10 @@ namespace SocialNetwork.Core.Domain.Entities
         public string? ImagePath { get; set; }
 
         //Foreign Key
-        public int? UserId { get; set; }
+        public int UserId { get; set; }
 
         //Navigation property
-        public ICollection<Comments> Comments { get; set; }
+        public ICollection<Comments>? Comments { get; set; }
         public Users? Users { get; set; }
     }
 }

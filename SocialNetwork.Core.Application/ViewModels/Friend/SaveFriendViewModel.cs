@@ -4,7 +4,7 @@ namespace SocialNetwork.Core.Application.ViewModels.Friend
 {
     public class SaveFriendViewModel
     {
-        public string? Id { get; set; }
+        public int Id { get; set; }
 
         public int? SenderId { get; set; }
 

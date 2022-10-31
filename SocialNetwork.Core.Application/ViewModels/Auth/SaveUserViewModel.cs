@@ -19,7 +19,7 @@ namespace SocialNetwork.Core.Application.ViewModels.Auth
         [DataType(DataType.Text)]
         public string? LastName { get; set; }
 
-        public string? ProfileImagePath { get; set; }
+        public string? ProfileImage { get; set; }
 
         [Required(ErrorMessage = "You must enter yout email")]
         [DataType(DataType.EmailAddress)]

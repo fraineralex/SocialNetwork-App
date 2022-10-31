@@ -13,8 +13,9 @@ namespace SocialNetwork.Core.Application.ViewModels.Comment
         public int? UserId { get; set; }  
 
         public int? PostId { get; set; }
+        public virtual DateTime Created { get; set; }
 
-        public UserViewModel? Users { get; set; }
+        public UserViewModel Users { get; set; }
         public PostViewModel? Posts { get; set; }
     }
 }

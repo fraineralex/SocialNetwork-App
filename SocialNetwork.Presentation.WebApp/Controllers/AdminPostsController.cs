@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using SocialNetwork.Core.Application.Helpers;
 using SocialNetwork.Core.Application.Interfaces.Services;
+using SocialNetwork.Core.Application.ViewModels.Comment;
 using SocialNetwork.Core.Application.ViewModels.Post;
-using SocialNetwork.Core.Domain.Entities;
 using SocialNetwork.Middlewares;
 
 namespace SocialNetwork.Presentation.WebApp.Controllers
@@ -11,12 +11,14 @@ namespace SocialNetwork.Presentation.WebApp.Controllers
     public class AdminPostsController : Controller
     {
         private readonly IPostsService _postService;
+        private readonly ICommentsService _commentsService;
         private readonly ValidateUserSession _validateUserSession;
         private readonly IMapper _mapper;
 
-        public AdminPostsController(IPostsService postService, ValidateUserSession validateUserSession, IMapper mapper)
+        public AdminPostsController(IPostsService postService, ICommentsService commentsService, ValidateUserSession validateUserSession, IMapper mapper)
         {
             _postService = postService;
+            _commentsService = commentsService;
             _validateUserSession = validateUserSession;
             _mapper = mapper;
         }
@@ -159,6 +161,41 @@ namespace SocialNetwork.Presentation.WebApp.Controllers
 
             return RedirectToRoute(new { controller = "home", action = "Index" });
         }
-        
+
+        public async Task<IActionResult> AddComment(int id)
+        {
+            if (!_validateUserSession.HasUser())
+            {
+                return RedirectToRoute(new { controller = "User", action = "Index" });
+            }
+
+            ViewBag.Page = "home";
+            SavePostViewModel savepostViewModel = await _postService.GetSaveViewModelById(id);
+            return View("AddComment", savepostViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddComment(String Content, int UserId, int PostId)
+        {
+            if (!_validateUserSession.HasUser())
+            {
+                return RedirectToRoute(new { controller = "User", action = "Index" });
+            }
+
+            SaveCommentViewModel commentVm = new()
+            {
+                Content = Content,
+                UserId = UserId,
+                PostId = PostId
+            };
+
+
+            SaveCommentViewModel saveViewModel = await _commentsService.Add(commentVm);
+
+            return RedirectToRoute(new { controller = "home", action = "Index" });
+
+        }
+
+
     }
 }

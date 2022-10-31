@@ -5,21 +5,24 @@ using SocialNetwork.Core.Application.Interfaces.Repositories;
 using SocialNetwork.Core.Application.Interfaces.Services;
 using SocialNetwork.Core.Application.Services;
 using SocialNetwork.Core.Application.ViewModels.Auth;
+using SocialNetwork.Core.Application.ViewModels.Comment;
 using SocialNetwork.Core.Application.ViewModels.Post;
 using SocialNetwork.Core.Domain.Entities;
 
-namespace EMarketApp.Core.Application.Services
+namespace SocialNetwork.Core.Application.Services
 {
     public class PostService : GenericService<SavePostViewModel, PostViewModel, Posts>, IPostsService
     {
         private readonly IPostsRepository _postsRepository;
+        private readonly IUsersService _userService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly UserViewModel userViewModel;
         private readonly IMapper _mapper;
 
-        public PostService(IPostsRepository postsRepository, IHttpContextAccessor httpContextAccessor, IMapper mapper) : base(postsRepository, mapper)
+        public PostService(IPostsRepository postsRepository, IUsersService userService, IHttpContextAccessor httpContextAccessor, IMapper mapper) : base(postsRepository, mapper)
         {
             _postsRepository = postsRepository;
+            _userService = userService;
             _httpContextAccessor = httpContextAccessor;
             userViewModel = _httpContextAccessor.HttpContext.Session.Get<UserViewModel>("user");
             _mapper = mapper;
@@ -33,7 +36,10 @@ namespace EMarketApp.Core.Application.Services
             {
                 Id = post.Id,
                 Content = post.Content,
-                ImagePath = post.ImagePath             
+                ImagePath = post.ImagePath,
+                UserId = post.UserId,
+                Comments = _mapper.Map<ICollection<CommentViewModel>>(post.Comments),
+                Users = _mapper.Map<UserViewModel>(post.Users)
 
             }).ToList();
         }

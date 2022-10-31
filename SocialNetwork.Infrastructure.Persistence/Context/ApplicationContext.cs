@@ -72,9 +72,15 @@ namespace SocialNetwork.Infrastructure.Persistence.Context
                 .HasForeignKey(comment => comment.PostId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<Posts>()
+                .HasOne(post => post.Users)
+                .WithMany(user => user.Posts)
+                .HasForeignKey(user => user.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<Users>()
-                .HasMany(friend => friend.Friends)
-                .WithOne(comment => comment.Users)
+                .HasMany(user => user.Friends)
+                .WithOne(friend => friend.Users)
                 .HasForeignKey(comment => comment.SenderId)
                 .OnDelete(DeleteBehavior.Cascade);
             #endregion

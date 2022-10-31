@@ -37,7 +37,7 @@
                 <span class="custom-tooltip">Search</span>
             </li>
             <li>
-                <a asp-controller="Home" asp-action="Home" class="bg-light">
+                <a asp-controller="Home" asp-action="Index" class="bg-light">
                     <i class='bx bx-home-alt text-dark'></i>
                     <span class="links_name text-dark">Home</span>
                 </a>
@@ -60,7 +60,7 @@
             <li class="profile">
                 <span class="custom-tooltip">Search</span>
                 <div class="profile-details">
-                    <img src="@User.ProfileImagePath" alt="profileImg">
+                    <img src="@User.ProfileImage" alt="profileImg">
                     <div class="name_job">
                         <div class="name"><small>@User.Name @User.LastName</small></div>
                         <div class="job">@User.Username</div>

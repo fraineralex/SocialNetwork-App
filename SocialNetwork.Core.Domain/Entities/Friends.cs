@@ -3,7 +3,7 @@ namespace SocialNetwork.Core.Domain.Entities
 {
     public class Friends
     {
-        public string? Id { get; set; }
+        public int Id { get; set; }
 
         //Foreign key
         public int? SenderId { get; set; }
@@ -15,6 +15,7 @@ namespace SocialNetwork.Core.Domain.Entities
         public DateTime? CreatedAt { get; set; }
 
         //Navigation property
+        public ICollection<Posts>? Posts { get; set; }
         public Users? Users { get; set; }
     }
 }

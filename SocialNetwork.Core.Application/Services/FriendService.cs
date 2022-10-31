@@ -27,9 +27,9 @@ namespace EMarketApp.Core.Application.Services
 
         public async Task<List<FriendViewModel>> GetAllViewModelWithInclude()
         {
-            var friendList = await _friendsRepository.GetAllWithIncludeAsync(new List<string> { "Users" });
+            var friendList = await _friendsRepository.GetAllWithIncludeAsync(new List<string> { "Users, Posts, Comments" });
 
-            return friendList.Where(friend => friend.ReceptorId == userViewModel.Id).Select(friend => new FriendViewModel
+            return friendList.Where(friend => friend.ReceptorId == userViewModel.Id || friend.ReceptorId == userViewModel.Id && friend.IsAccepted == true).Select(friend => new FriendViewModel
             {
                 Id = friend.Id,
                 SenderId = friend.SenderId,

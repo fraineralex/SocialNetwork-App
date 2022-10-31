@@ -1,0 +1,175 @@
+﻿@using SocialNetwork.Core.Application.ViewModels.Post
+@model List<UserViewModel>
+@using SocialNetwork.Core.Application.ViewModels.Auth
+@using SocialNetwork.Core.Application.Helpers
+@inject IHttpContextAccessor httpContext;
+@{
+    UserViewModel User = httpContext.HttpContext.Session.Get<UserViewModel>("user");
+}
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<main class="box-center">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    @if (Model == null || Model.Count == 0)
+    {
+        <h5 class="fs-4 fw-bold text-secondary mt-1 text-center">No post has been found in the system</h5>
+    }
+    else
+    {
+        @foreach (UserViewModel user in Model)
+        {
+            @foreach (PostViewModel post in user.Friends.Posts)
+            {
+
+                if (post.ImagePath != null)
+                {
+                    <div class="col-md-6 ms-3 mb-3">
+                        <div class="card bg-dark mx-auto" style="width: 40rem; max-height: 70rem;">
+                            <div class="card-header border-dark" style="height: 55px;">
+                                <span class="d-image">
+                                    <img src="@post.Users.ProfileImage" class="me-2 mt-1" alt="profile">
+                                </span>
+                                <small class="me-auto fs-6 text-white"><strong>@post.Users.Username</strong></small>
+                                <small class="float-end fw-light text-white mt-2">Hace 2 minutos</small>
+                            </div>
+                            <div class="card-body">
+                                <br><small class="fs-6 text-white">@post.Content</small>
+                                <div class="text-center mt-2 post-image">
+                                    <img src="@post.ImagePath" class="img-fluid" alt="image">
+                                </div>
+                                <div class="mt-4">
+                                    <a type="button" class="btn btn-sm btn-light me-2" asp-controller="AdminPosts" asp-action="Edit" asp-route-id="@post.Id" asp-route-postImage="true">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z">
+                                            </path>
+                                            <path fill-rule="evenodd"
+                                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z">
+                                            </path>
+                                        </svg>
+                                        Update
+                                    </a>
+
+                                    <a type="button" asp-controller="AdminPosts" asp-action="Delete" asp-route-id="@post.Id" class="btn btn-sm btn-danger">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                                        </svg>
+                                        Delete
+                                    </a>
+
+                                    <a type="button" class="btn btn-primary float-end" asp-controller="AdminPosts" asp-action="AddComment" asp-route-id="@post.Id">
+                                        <i class="bi bi-chat"></i>
+                                        Comment
+                                    </a>
+                                </div>
+                                @if (post.Comments.Count != 0)
+                                {
+                                    <hr class="text-white mt-4" />
+                                    <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive"
+                                     aria-atomic="true" style="width: 80%;">
+                                        <div class="card-header " style="height: 40px;">
+                                            <span class="r-image">
+                                                <img src="@post.Comments.First().Users.ProfileImage" class=" me-2"
+                                                 alt="profile">
+                                            </span>
+                                            <small class="me-auto fw-light">@post.Comments.First().Users.Username</small>
+                                            <small class="float-end fw-light text-white">
+                                                Justo ahora
+                                            </small>
+                                        </div>
+                                        <div class="card-body">
+                                            <small class="fw-light">@post.Comments.First().Content</small>
+
+                                            <a type="button"
+                                           class="btn-sm btn-primary float-end ms-1">
+                                                <i class="bi bi-chat-text-fill"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-6 ms-3 mb-3">
+                        <div class="card bg-dark" style="width: 40rem;">
+                            <div class="card-header border-dark" style="height: 55px;">
+                                <span class="d-image">
+                                    <img src="@post.Users.ProfileImage" class="me-2 mt-1" alt="profile">
+                                </span>
+                                <small class="me-auto fs-6 text-white"><strong>@post.Users.Username</strong></small>
+                                <small class="float-end fw-light text-white mt-2">Hace 2 minutos</small>
+                            </div>
+                            <div class="card-body">
+                                <p class="fs-5 text-white mt-3">
+                                    @post.Content
+                                </p>
+                                <div class="mt-5">
+                                    <a type="button" class="btn btn-sm btn-light me-2" asp-controller="AdminPosts" asp-action="Edit" asp-route-id="@post.Id">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z">
+                                            </path>
+                                            <path fill-rule="evenodd"
+                                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z">
+                                            </path>
+                                        </svg>
+                                        Update
+                                    </a>
+
+                                    <a type="button" asp-controller="AdminPosts" asp-action="Delete" asp-route-id="@post.Id" class="btn btn-sm btn-danger">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                                        </svg>
+                                        Delete
+                                    </a>
+
+                                    <a type="button" class="btn btn-primary float-end" href="">
+                                        <i class="bi bi-chat"></i>
+                                        Comment
+                                    </a>
+                                </div>
+                                @if (post.Comments.Count != 0)
+                                {
+                                    <hr class="text-white mt-4" />
+                                    <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive"
+                                  aria-atomic="true" style="width: 80%;">
+                                        <div class="card-header " style="height: 40px;">
+                                            <span class="r-image">
+                                                <img src="@post.Comments.First().Users.ProfileImage" class=" me-2"
+                                              alt="profile">
+                                            </span>
+                                            <small class="me-auto fw-light">@post.Comments.First().Users.Username</small>
+                                            <small class="float-end fw-light text-white">
+                                                Justo ahora
+                                            </small>
+                                        </div>
+                                        <div class="card-body">
+                                            <small class="fw-light">@post.Comments.First().Content</small>
+
+                                            <a type="button"
+                                            class="btn-sm btn-primary float-end ms-1">
+                                                <i class="bi bi-chat-text-fill"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        }
+    }
+
+</main>
