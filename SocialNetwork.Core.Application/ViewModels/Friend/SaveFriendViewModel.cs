@@ -1,4 +1,5 @@
 ﻿using SocialNetwork.Core.Application.ViewModels.Auth;
+using SocialNetwork.Core.Application.ViewModels.Post;
 
 namespace SocialNetwork.Core.Application.ViewModels.Friend
 {
@@ -15,5 +16,6 @@ namespace SocialNetwork.Core.Application.ViewModels.Friend
         public DateTime? CreatedAt { get; set; }
 
         public UserViewModel? Users { get; set; }
+        public ICollection<PostViewModel>? Posts { get; set; }
     }
 }

@@ -28,7 +28,7 @@
                         <form asp-action="@(editMode ? "Edit" : "Create")" asp-controller="AdminPosts" method="POST" EncType="multipart/form-data">
 
                             <div class="px-3 mt-3">
-                                <textarea type="text" class="form-control bg-dark text-white mt-3 @(editMode ? "border-0" : "border-light")" id="post"
+                                <textarea type="text" class="form-control bg-dark text-white mt-3 @(editMode ? ViewBag.Image ? "border-0" : "border-light" : "border-light")" id="post"
                                           for="Content" name="Content" placeholder="@(ViewBag.Image ? "Write a description..." : "What're you thinking?")" rows="@(ViewBag.Image ? editMode ? "2" : "3" : "4")">@(editMode ? Model.Content : "")</textarea>
                                 <span asp-validation-for="Content" class="text-danger"></span>
                             </div>

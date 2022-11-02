@@ -18,6 +18,6 @@ namespace SocialNetwork.Core.Application.ViewModels.Friend
         public DateTime? CreatedAt { get; set; }
 
         public ICollection<PostViewModel>? Posts { get; set; }
-        public ICollection<UserViewModel>? Users { get; set; }
+        public UserViewModel? Users { get; set; }
     }
 }

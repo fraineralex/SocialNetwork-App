@@ -65,13 +65,13 @@ namespace SocialNetwork.Core.Application.Services
             return userFiltered;
         }
 
-        public async Task<String> GetUsernameByIdAsync(int id)
+        public async Task<Users> GetUserViewModelById(int id)
         {
-            var userEntity = await _userRepository.GetByIdAsync(id);
+            var userList = await _userRepository.GetAllWithIncludeAsync(new List<string> { "Posts", "Comments" });
 
-            UserViewModel userVm = _mapper.Map<UserViewModel>(userEntity);
+            //UserViewModel userVm = _mapper.Map<UserViewModel>(userList.Where(user => user.Id == id).FirstOrDefault());
 
-            return userVm.Username;
+            return userList.Where(user => user.Id == id).FirstOrDefault();
         }
 
     }

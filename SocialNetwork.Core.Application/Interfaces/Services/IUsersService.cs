@@ -7,7 +7,7 @@ namespace SocialNetwork.Core.Application.Interfaces.Services
     {
         Task<UserViewModel> Login(LoginViewModel loginVm);
         Task<Users> GetAUserByUsernameAsync(string username);
-        Task<String> GetUsernameByIdAsync(int id);
+        Task<Users> GetUserViewModelById(int id);
         Task<List<UserViewModel>> GetAllViewModelWithInclude();
     }
 }

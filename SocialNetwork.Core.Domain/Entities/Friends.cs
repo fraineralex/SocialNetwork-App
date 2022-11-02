@@ -6,7 +6,7 @@ namespace SocialNetwork.Core.Domain.Entities
         public int Id { get; set; }
 
         //Foreign key
-        public int? SenderId { get; set; }
+        public int SenderId { get; set; }
 
         public int? ReceptorId { get; set; }
 

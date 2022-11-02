@@ -66,9 +66,11 @@ namespace SocialNetwork.Core.Application.Mappings
             #endregion
 
             #region "Friend profile"
-            CreateMap<Friends, FriendViewModel>();
+            CreateMap<Friends, FriendViewModel>()
+            .ReverseMap();
 
-            CreateMap<Friends, SaveFriendViewModel>();
+            CreateMap<Friends, SaveFriendViewModel>()
+            .ReverseMap();
             #endregion
         }
 
