@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SocialNetwork.Core.Application.Interfaces.Services;
+using SocialNetwork.Core.Application.ViewModels.Post;
 using SocialNetwork.Middlewares;
 using SocialNetwork.Presentation.WebApp.Models;
 using System.Diagnostics;

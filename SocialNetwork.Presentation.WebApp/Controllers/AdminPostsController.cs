@@ -170,8 +170,8 @@ namespace SocialNetwork.Presentation.WebApp.Controllers
             }
 
             ViewBag.Page = "home";
-            SavePostViewModel savepostViewModel = await _postService.GetSaveViewModelById(id);
-            return View("AddComment", savepostViewModel);
+            PostViewModel postViewModel = await _postService.GetPostViewModelById(id);
+            return View("AddComment", postViewModel);
         }
 
         [HttpPost]
@@ -196,6 +196,17 @@ namespace SocialNetwork.Presentation.WebApp.Controllers
 
         }
 
+        public async Task<IActionResult> AllComments(int id)
+        {
+            if (!_validateUserSession.HasUser())
+            {
+                return RedirectToRoute(new { controller = "User", action = "Index" });
+            }
+
+            ViewBag.Page = "home";
+            PostViewModel postVm = await _postService.GetPostViewModelById(id);
+            return View("AddComment", postVm);
+        }
 
     }
 }

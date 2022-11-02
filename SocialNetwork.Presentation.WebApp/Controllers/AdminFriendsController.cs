@@ -4,18 +4,19 @@ using SocialNetwork.Core.Application.Helpers;
 using SocialNetwork.Core.Application.Interfaces.Services;
 using SocialNetwork.Core.Application.ViewModels.Comment;
 using SocialNetwork.Core.Application.ViewModels.Post;
+using SocialNetwork.Core.Domain.Entities;
 using SocialNetwork.Middlewares;
 
 namespace SocialNetwork.Presentation.WebApp.Controllers
 {
-    public class FriendsController : Controller
+    public class AdminFriendsController : Controller
     {
         private readonly IFriendsService _friendsService;
         private readonly IUsersService _userService;
         private readonly ValidateUserSession _validateUserSession;
         private readonly IMapper _mapper;
 
-        public FriendsController(IFriendsService friendsService, ValidateUserSession validateUserSession, IMapper mapper, IUsersService usersService)
+        public AdminFriendsController(IFriendsService friendsService, ValidateUserSession validateUserSession, IMapper mapper, IUsersService usersService)
         {
             _friendsService = friendsService;
             _userService = usersService;
@@ -30,8 +31,8 @@ namespace SocialNetwork.Presentation.WebApp.Controllers
                 return RedirectToRoute(new { controller = "User", action = "Index" });
             }
 
-            ViewBag.Page = "home";
-            return View("AdminFriends/Index", await _userService.GetAllViewModelWithInclude());
+            ViewBag.Page = "friend";
+            return View("Friends", await _friendsService.GetAllViewModelWithInclude());
         }
 
     }

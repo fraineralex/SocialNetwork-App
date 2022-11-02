@@ -6,6 +6,7 @@ using SocialNetwork.Core.Application.Interfaces.Services;
 using SocialNetwork.Core.Application.Services;
 using SocialNetwork.Core.Application.ViewModels.Auth;
 using SocialNetwork.Core.Application.ViewModels.Friend;
+using SocialNetwork.Core.Application.ViewModels.Post;
 using SocialNetwork.Core.Domain.Entities;
 
 namespace EMarketApp.Core.Application.Services
@@ -27,15 +28,16 @@ namespace EMarketApp.Core.Application.Services
 
         public async Task<List<FriendViewModel>> GetAllViewModelWithInclude()
         {
-            var friendList = await _friendsRepository.GetAllWithIncludeAsync(new List<string> { "Users, Posts, Comments" });
+            var friendList = await _friendsRepository.GetAllWithIncludeAsync(new List<string> { "Posts" });
 
-            return friendList.Where(friend => friend.ReceptorId == userViewModel.Id || friend.ReceptorId == userViewModel.Id && friend.IsAccepted == true).Select(friend => new FriendViewModel
+            return friendList.Where(friend => friend.SenderId == userViewModel.Id || friend.ReceptorId == userViewModel.Id && friend.IsAccepted == true).Select(friend => new FriendViewModel
             {
                 Id = friend.Id,
                 SenderId = friend.SenderId,
                 ReceptorId = friend.ReceptorId,
                 CreatedAt = friend.CreatedAt,
                 IsAccepted = friend.IsAccepted,
+                Posts = _mapper.Map<ICollection<PostViewModel>>(friend.Posts)
 
             }).ToList();
         }

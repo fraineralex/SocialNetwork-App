@@ -1,5 +1,6 @@
-﻿@using SocialNetwork.Core.Application.ViewModels.Post
-@model List<UserViewModel>
+﻿@using SocialNetwork.Core.Application.ViewModels.Friend
+@using SocialNetwork.Core.Application.ViewModels.Post
+@model List<FriendViewModel>
 @using SocialNetwork.Core.Application.ViewModels.Auth
 @using SocialNetwork.Core.Application.Helpers
 @inject IHttpContextAccessor httpContext;
@@ -7,7 +8,7 @@
     UserViewModel User = httpContext.HttpContext.Session.Get<UserViewModel>("user");
 }
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Friends";
 }
 
 <main class="box-center">
@@ -22,9 +23,9 @@
     }
     else
     {
-        @foreach (UserViewModel user in Model)
+        @foreach (FriendViewModel friend in Model)
         {
-            @foreach (PostViewModel post in user.Friends.Posts)
+            @foreach (PostViewModel post in friend.Posts)
             {
 
                 if (post.ImagePath != null)

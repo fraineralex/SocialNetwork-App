@@ -30,7 +30,7 @@ namespace SocialNetwork.Core.Application.Services
 
         public async Task<List<PostViewModel>> GetAllViewModelWithInclude()
         {
-            var postList = await _postsRepository.GetAllWithIncludeAsync(new List<string> { "Comments" });
+            var postList = await _postsRepository.GetAllWithIncludeAsync(new List<string> { "Comments", "Users" });
 
             return postList.Where(post => post.UserId == userViewModel.Id).Select(post => new PostViewModel
             {
@@ -56,6 +56,15 @@ namespace SocialNetwork.Core.Application.Services
             vm.UserId = userViewModel.Id;
 
             await base.Update(vm, id);
+        }
+
+        public virtual async Task<PostViewModel> GetPostViewModelById(int id)
+        {
+            var entity = await _postsRepository.GetByIdAsync(id);
+
+            PostViewModel vm = _mapper.Map<PostViewModel>(entity);
+
+            return vm;
         }
 
     }
