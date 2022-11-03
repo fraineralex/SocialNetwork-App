@@ -7,5 +7,6 @@ namespace SocialNetwork.Core.Application.Interfaces.Services
     {
         Task<List<PostViewModel>> GetAllViewModelWithInclude();
         Task<PostViewModel> GetPostViewModelById(int id);
+        Task<List<PostViewModel>> GetPostViewModelByUserId(int id);
     }
 }

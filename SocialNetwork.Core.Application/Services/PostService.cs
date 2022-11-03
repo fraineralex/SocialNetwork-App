@@ -69,6 +69,17 @@ namespace SocialNetwork.Core.Application.Services
             return postVm;
         }
 
+        public virtual async Task<List<PostViewModel>> GetPostViewModelByUserId(int id)
+        {
+            var postList = await _postsRepository.GetAllWithIncludeAsync(new List<string> { "Comments", "Users" });
+
+            var post = postList.Where(post => post.UserId == id).ToList();
+
+            List<PostViewModel> postVmList = _mapper.Map<List<PostViewModel>>(post);
+
+            return postVmList;
+        }
+
     }
 
 

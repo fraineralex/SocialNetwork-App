@@ -232,8 +232,8 @@ namespace SocialNetwork.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("SocialNetwork.Core.Domain.Entities.Posts", b =>
                 {
-                    b.HasOne("SocialNetwork.Core.Domain.Entities.Friends", null)
-                        .WithMany("Posts")
+                    b.HasOne("SocialNetwork.Core.Domain.Entities.Friends", "Friends")
+                        .WithMany()
                         .HasForeignKey("FriendsId");
 
                     b.HasOne("SocialNetwork.Core.Domain.Entities.Users", "Users")
@@ -242,12 +242,9 @@ namespace SocialNetwork.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Users");
-                });
+                    b.Navigation("Friends");
 
-            modelBuilder.Entity("SocialNetwork.Core.Domain.Entities.Friends", b =>
-                {
-                    b.Navigation("Posts");
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("SocialNetwork.Core.Domain.Entities.Posts", b =>

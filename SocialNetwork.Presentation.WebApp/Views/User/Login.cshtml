@@ -15,7 +15,12 @@
                     Welcome to Social Network App, log in and start
                     interacting
                     with the other users.
+
+                    <button id="restore-pass" class="btn btn-info btn-lg mt-2"><i class='bx bx-user'></i> Restore Password</button>
                 </p>
+
+                @Html.ValidationMessage("ActiveSuccess", "",new{@class = "text-success text-center fw-bold mt-4 mb-3"}, "h4")
+                @Html.ValidationMessage("ActiveError", "",new{@class = "text-danger text-center fw-bold mt-4 mb-3"}, "h4")
 
                 <div class="col-10 mx-auto card bg-dark text-white mt-5 mb-5" style="border-radius: 1rem;">
                     <div class="card-body">

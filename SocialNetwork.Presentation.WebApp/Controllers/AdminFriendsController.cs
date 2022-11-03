@@ -2,10 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using SocialNetwork.Core.Application.Helpers;
 using SocialNetwork.Core.Application.Interfaces.Services;
+using SocialNetwork.Core.Application.Services;
 using SocialNetwork.Core.Application.ViewModels.Auth;
-using SocialNetwork.Core.Application.ViewModels.Comment;
 using SocialNetwork.Core.Application.ViewModels.Friend;
-using SocialNetwork.Core.Application.ViewModels.Post;
 using SocialNetwork.Core.Domain.Entities;
 using SocialNetwork.Middlewares;
 
@@ -67,10 +66,25 @@ namespace SocialNetwork.Presentation.WebApp.Controllers
 
             }
 
-            Users user = await _userService.GetAUserByUsernameAsync(AddFriendVm.Username);
+            SaveUserViewModel user = await _userService.GetAUserByUsernameAsync(AddFriendVm.Username);
 
             if (user != null)
             {
+                if (user.IsActive == false)
+                {
+                    ModelState.AddModelError("userVaidation", "This account is desatived, try another user.");
+                    ViewBag.Page = "friend";
+                    return View("AddFriend", AddFriendVm);
+                }
+                bool areFriend = await _friendsService.CheckIfAreFriend(userViewModel.Id, user.Id);
+
+                if (areFriend)
+                {
+                    ModelState.AddModelError("userVaidation", "This user is your friend yet.");
+                    ViewBag.Page = "friend";
+                    return View("AddFriend", AddFriendVm);
+                }
+
                 SaveFriendViewModel SaveFriendVm = new()
                 {
                     SenderId = userViewModel.Id,
@@ -92,5 +106,23 @@ namespace SocialNetwork.Presentation.WebApp.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> DeleteFriend(int receptorId)
+        {
+            if (!_validateUserSession.HasUser())
+            {
+                return RedirectToRoute(new { controller = "User", action = "Index" });
+            }
+
+            var friend = _friendsService.GetFriendByReceptor(receptorId);
+
+            if(friend != null)
+            {
+                await _friendsService.Delete(friend.Id);
+            }
+
+            return RedirectToRoute(new { controller = "AdminFriends", action = "Index" });
+
+        }
     }
 }

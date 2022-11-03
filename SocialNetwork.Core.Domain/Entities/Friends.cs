@@ -8,14 +8,13 @@ namespace SocialNetwork.Core.Domain.Entities
         //Foreign key
         public int SenderId { get; set; }
 
-        public int? ReceptorId { get; set; }
+        public int ReceptorId { get; set; }
 
         public bool? IsAccepted { get; set; }
 
         public DateTime? CreatedAt { get; set; }
 
         //Navigation property
-        public ICollection<Posts>? Posts { get; set; }
         public Users? Users { get; set; }
     }
 }

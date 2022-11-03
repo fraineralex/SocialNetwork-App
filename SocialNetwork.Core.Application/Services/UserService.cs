@@ -7,24 +7,44 @@ using SocialNetwork.Core.Application.ViewModels.Auth;
 using SocialNetwork.Core.Application.ViewModels.Friend;
 using SocialNetwork.Core.Application.ViewModels.Post;
 using SocialNetwork.Core.Domain.Entities;
+using SocialNetwork.Core.Application.Dtos.Email;
 
 namespace SocialNetwork.Core.Application.Services
 {
     public class UserService : GenericService<SaveUserViewModel, UserViewModel, Users>, IUsersService
     {
         private readonly IUsersRepository _userRepository;
+        private readonly IEmailService _emailService;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly UserViewModel userViewModel;
 
 
-        public UserService(IUsersRepository userRepository, IMapper mapper, IHttpContextAccessor httpContextAccessor) : base(userRepository, mapper)
+        public UserService(IUsersRepository userRepository, IMapper mapper, IHttpContextAccessor httpContextAccessor, IEmailService emailService) : base(userRepository, mapper)
         {
             _userRepository = userRepository;
+            _emailService = emailService;
             _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;
             userViewModel = _httpContextAccessor.HttpContext.Session.Get<UserViewModel>("user");
         }
+
+        public override async Task<SaveUserViewModel> Add(SaveUserViewModel vm)
+        {
+           await _emailService.SendAsync(new EmailRequest
+           {
+                To = vm.Email,
+                Subject = "Your Social Network App account has been created!\r\n",
+                Body = $"<h1>Welcome to Social Network App 👨🏻‍🚀</h1>" +
+                $"<p>Hi {vm.Name} {vm.LastName} 😃,\r\n\r\n" +
+                $"Thanks for creating an account on Social Network App. Your username is <strong>{vm.Username}</strong>.</p>" +
+                $"<p>Click the following link to active your account ➡️ <a href='http://localhost:7050/User/ActiveAccount/{vm.Username}'>ACTIVAR ✅</a></p>"
+
+           });
+
+            return await base.Add(vm);
+        }
+
 
         public async Task<List<UserViewModel>> GetAllViewModelWithInclude()
         {
@@ -37,7 +57,7 @@ namespace SocialNetwork.Core.Application.Services
                 LastName = user.LastName,
                 Username = user.Username,
                 ProfileImage = user.ProfileImage,
-                Friends = _mapper.Map<FriendViewModel>(user.Friends),
+                Friends = _mapper.Map<ICollection<FriendViewModel>>(user.Friends),
                 Posts = _mapper.Map<ICollection<PostViewModel>>(user.Posts)
             }).ToList();
         }
@@ -56,22 +76,22 @@ namespace SocialNetwork.Core.Application.Services
             return userVm;
         }
 
-        public async Task<Users> GetAUserByUsernameAsync(string username)
+        public async Task<SaveUserViewModel> GetAUserByUsernameAsync(string username)
         {
             var userslist = await _userRepository.GetAllAsync();
 
             var userFiltered = userslist.Where(user => user.Username == username).FirstOrDefault();
 
-            return userFiltered;
+            return _mapper.Map<SaveUserViewModel>(userFiltered);
         }
 
-        public async Task<Users> GetUserViewModelById(int id)
+        public async Task<UserViewModel> GetUserViewModelById(int id)
         {
             var userList = await _userRepository.GetAllWithIncludeAsync(new List<string> { "Posts", "Comments" });
 
-            //UserViewModel userVm = _mapper.Map<UserViewModel>(userList.Where(user => user.Id == id).FirstOrDefault());
+            UserViewModel userVm = _mapper.Map<UserViewModel>(userList.Where(user => user.Id == id).FirstOrDefault());
 
-            return userList.Where(user => user.Id == id).FirstOrDefault();
+            return userVm;
         }
 
     }

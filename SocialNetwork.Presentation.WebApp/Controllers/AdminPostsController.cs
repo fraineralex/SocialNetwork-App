@@ -162,20 +162,20 @@ namespace SocialNetwork.Presentation.WebApp.Controllers
             return RedirectToRoute(new { controller = "home", action = "Index" });
         }
 
-        public async Task<IActionResult> AddComment(int id)
+        public async Task<IActionResult> AddComment(int id, string place)
         {
             if (!_validateUserSession.HasUser())
             {
                 return RedirectToRoute(new { controller = "User", action = "Index" });
             }
 
-            ViewBag.Page = "home";
+            ViewBag.Page = place;
             PostViewModel postViewModel = await _postService.GetPostViewModelById(id);
             return View("AddComment", postViewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddComment(String Content, int UserId, int PostId)
+        public async Task<IActionResult> AddComment(String Content, int UserId, int PostId, string Place)
         {
             if (!_validateUserSession.HasUser())
             {
@@ -192,20 +192,18 @@ namespace SocialNetwork.Presentation.WebApp.Controllers
 
             SaveCommentViewModel saveViewModel = await _commentsService.Add(commentVm);
 
-            return RedirectToRoute(new { controller = "home", action = "Index" });
-
-        }
-
-        public async Task<IActionResult> AllComments(int id)
-        {
-            if (!_validateUserSession.HasUser())
+            if(Place == "home")
             {
-                return RedirectToRoute(new { controller = "User", action = "Index" });
+                return RedirectToRoute(new { controller = "Home", action = "Index" });
+            }
+            else
+            {
+                return RedirectToRoute(new { controller = "AdminFriends", action = "Index" });
             }
 
-            ViewBag.Page = "home";
-            PostViewModel postVm = await _postService.GetPostViewModelById(id);
-            return View("AddComment", postVm);
+
+            
+
         }
 
     }

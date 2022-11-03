@@ -11,15 +11,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrasctructure", "Infrasct
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{128C1E81-F313-4EAE-AE1E-4FF0D67B17DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialNetwork.Core.Domain", "SocialNetwork.Core.Domain\SocialNetwork.Core.Domain.csproj", "{8D729D26-ABDD-4E2F-9D76-A2E39F595AF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialNetwork.Core.Domain", "SocialNetwork.Core.Domain\SocialNetwork.Core.Domain.csproj", "{8D729D26-ABDD-4E2F-9D76-A2E39F595AF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialNetwork.Core.Application", "SocialNetwork.Core.Application\SocialNetwork.Core.Application.csproj", "{50A3F7B5-E3EC-4C38-9004-45EA22DAE4B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialNetwork.Core.Application", "SocialNetwork.Core.Application\SocialNetwork.Core.Application.csproj", "{50A3F7B5-E3EC-4C38-9004-45EA22DAE4B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialNetwork.Infrastructure.Persistence", "SocialNetwork.Infrastructure.Persistence\SocialNetwork.Infrastructure.Persistence.csproj", "{A39CE738-0277-42FA-9AE2-EE4ECC0D5B9C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialNetwork.Infrastructure.Persistence", "SocialNetwork.Infrastructure.Persistence\SocialNetwork.Infrastructure.Persistence.csproj", "{A39CE738-0277-42FA-9AE2-EE4ECC0D5B9C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApp", "WebApp", "{1301750E-D8F8-48F8-9BFE-0BADF9F8BA19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialNetwork.Presentation.WebApp", "SocialNetwork.Presentation.WebApp\SocialNetwork.Presentation.WebApp.csproj", "{BC7C6C78-0847-47A7-BF6D-87DB6A6764CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialNetwork.Presentation.WebApp", "SocialNetwork.Presentation.WebApp\SocialNetwork.Presentation.WebApp.csproj", "{BC7C6C78-0847-47A7-BF6D-87DB6A6764CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialNetwork.Infrastructure.Shared", "SocialNetwork.Infrastructure.Shared\SocialNetwork.Infrastructure.Shared.csproj", "{8F751A81-DDAA-499D-8649-F16CD334E863}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,10 @@ Global
 		{BC7C6C78-0847-47A7-BF6D-87DB6A6764CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC7C6C78-0847-47A7-BF6D-87DB6A6764CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC7C6C78-0847-47A7-BF6D-87DB6A6764CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F751A81-DDAA-499D-8649-F16CD334E863}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F751A81-DDAA-499D-8649-F16CD334E863}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F751A81-DDAA-499D-8649-F16CD334E863}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F751A81-DDAA-499D-8649-F16CD334E863}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,6 +62,7 @@ Global
 		{A39CE738-0277-42FA-9AE2-EE4ECC0D5B9C} = {905C8526-A35D-4E4B-80DA-7A46876DCA80}
 		{1301750E-D8F8-48F8-9BFE-0BADF9F8BA19} = {128C1E81-F313-4EAE-AE1E-4FF0D67B17DE}
 		{BC7C6C78-0847-47A7-BF6D-87DB6A6764CC} = {1301750E-D8F8-48F8-9BFE-0BADF9F8BA19}
+		{8F751A81-DDAA-499D-8649-F16CD334E863} = {905C8526-A35D-4E4B-80DA-7A46876DCA80}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3B9D8869-44E6-4CFE-90A4-F20A33603EE5}

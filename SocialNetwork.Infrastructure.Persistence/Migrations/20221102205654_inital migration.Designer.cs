@@ -12,8 +12,8 @@ using SocialNetwork.Infrastructure.Persistence.Context;
 namespace SocialNetwork.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20221031040654_Initial Migration")]
-    partial class InitialMigration
+    [Migration("20221102205654_inital migration")]
+    partial class initalmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -85,8 +85,7 @@ namespace SocialNetwork.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<int?>("SenderId")
-                        .IsRequired()
+                    b.Property<int>("SenderId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -235,8 +234,8 @@ namespace SocialNetwork.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("SocialNetwork.Core.Domain.Entities.Posts", b =>
                 {
-                    b.HasOne("SocialNetwork.Core.Domain.Entities.Friends", null)
-                        .WithMany("Posts")
+                    b.HasOne("SocialNetwork.Core.Domain.Entities.Friends", "Friends")
+                        .WithMany()
                         .HasForeignKey("FriendsId");
 
                     b.HasOne("SocialNetwork.Core.Domain.Entities.Users", "Users")
@@ -245,12 +244,9 @@ namespace SocialNetwork.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Users");
-                });
+                    b.Navigation("Friends");
 
-            modelBuilder.Entity("SocialNetwork.Core.Domain.Entities.Friends", b =>
-                {
-                    b.Navigation("Posts");
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("SocialNetwork.Core.Domain.Entities.Posts", b =>

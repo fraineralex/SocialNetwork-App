@@ -18,6 +18,7 @@
     <ProjectReference Include="..\SocialNetwork.Core.Application\SocialNetwork.Core.Application.csproj" />
     <ProjectReference Include="..\SocialNetwork.Core.Domain\SocialNetwork.Core.Domain.csproj" />
     <ProjectReference Include="..\SocialNetwork.Infrastructure.Persistence\SocialNetwork.Infrastructure.Persistence.csproj" />
+    <ProjectReference Include="..\SocialNetwork.Infrastructure.Shared\SocialNetwork.Infrastructure.Shared.csproj" />
   </ItemGroup>
 
 </Project>
