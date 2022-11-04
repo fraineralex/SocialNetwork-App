@@ -20,13 +20,13 @@ namespace SocialNetwork.Infrastructure.Persistence.Context
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        entry.Entity.Created = DateTime.Now;
-                        entry.Entity.CreateBy = "DefaultAppUser";
+                        entry.Entity.Created = DateTime.Now.ToString("d/M/yyyy hh:mm");
+                        entry.Entity.CreateBy = "SocialNetworkApp";
                         break;
 
                     case EntityState.Modified:
                         entry.Entity.LastModified = DateTime.Now;
-                        entry.Entity.LastModifiedBy = "DefaultAppUser";
+                        entry.Entity.LastModifiedBy = "SocialNetworkApp";
                         break;
                 }
             }

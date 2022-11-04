@@ -41,7 +41,7 @@
                             <div class="p-3 pt-0">
                                 <label asp-for="FileImage" class="form-label text-white"><strong>Profile Image<small class="text-danger"> *</small></strong></strong></label>
                                 <input type="file" class="form-control bg-dark text-white border-white form-control-lg"
-                                       asp-for="FileImage" accept="image/*">
+                                       asp-for="FileImage" accept="image/*" required>
                                 <span asp-validation-for="FileImage" class="text-danger"></span>
                             </div>
 
@@ -54,8 +54,9 @@
 
                             <div class="p-3 pt-0">
                                 <label asp-for="Phone" class="form-label text-white"><strong>Phone <small class="text-danger"> *</small></strong></strong></label>
-                                <input type="text" class="form-control bg-dark text-white border-white form-control-lg"
-                                       asp-for="Phone">
+                                <input id="phone" type="text" class="form-control bg-dark text-white border-white form-control-lg"
+                                       asp-for="Phone" placeholder="(000)-000-0000"
+                                       autocomplete="off" min="1">
                                 <span asp-validation-for="Phone" class="text-danger"></span>
                             </div>
 
@@ -103,3 +104,30 @@
         </div>
     </section>
 </main>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        /***phone number format***/
+        $("#phone").keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                return false;
+            }
+            var curchr = this.value.length;
+            var curval = $(this).val();
+            if (curchr == 3 && curval.indexOf("(") <= -1) {
+                $(this).val("(" + curval + ")" + "-");
+            } else if (curchr == 4 && curval.indexOf("(") > -1) {
+                $(this).val(curval + ")-");
+            } else if (curchr == 5 && curval.indexOf(")") > -1) {
+                $(this).val(curval + "-");
+            } else if (curchr == 9) {
+                $(this).val(curval + "-");
+                $(this).attr("maxlength", "14");
+            }
+        });
+    });
+</script>
+
+

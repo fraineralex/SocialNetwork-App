@@ -27,6 +27,7 @@ namespace SocialNetwork.Core.Application.Mappings
                 .ForMember(x => x.LastModified, opt => opt.Ignore())
                 .ForMember(x => x.Users, opt => opt.Ignore())
                 .ForMember(x => x.Comments, opt => opt.Ignore());
+                
             #endregion
 
             #region "Comments profile"

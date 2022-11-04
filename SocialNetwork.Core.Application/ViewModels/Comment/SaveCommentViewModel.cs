@@ -10,7 +10,7 @@ namespace SocialNetwork.Core.Application.ViewModels.Comment
         public int? UserId { get; set; }
 
         public int? PostId { get; set; }
-        public DateTime? Created { get; set; }
+        public string? Created { get; set; }
     }
 
 }

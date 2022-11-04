@@ -12,7 +12,7 @@ namespace SocialNetwork.Core.Domain.Common
 
         public virtual string? CreateBy { get; set; }
 
-        public virtual DateTime Created { get; set; }
+        public virtual string? Created { get; set; }
 
         public virtual string? LastModifiedBy { get; set; }
 

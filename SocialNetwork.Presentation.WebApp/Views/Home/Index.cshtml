@@ -73,7 +73,7 @@
                             <img src="@post.Users.ProfileImage" class="me-2 mt-1" alt="profile">
                         </span>
                         <small class="me-auto fs-6 text-white"><strong>@post.Users.Username</strong></small>
-                        <small class="float-end fw-light text-white mt-2">@post.Created.ToString("M/d/yyyy hh:mm:ss")</small>
+                        <small class="float-end fw-light text-white mt-2">@post.Created</small>
                     </div>
                     <div class="card-body">
                         <br><small class="fs-6 text-white">@post.Content</small>
@@ -140,7 +140,7 @@
                                     </span>
                                     <small class="me-auto fw-light">@post.Comments.First().Users.Username</small>
                                     <small class="float-end fw-light text-white">
-                                        @post.Comments.First().Created.ToString("M/d/yyyy hh:mm:ss")
+                                        @post.Comments.First().Created
                                     </small>
                                 </div>
                                 <div class="card-body">

@@ -13,7 +13,7 @@ namespace SocialNetwork.Core.Application.ViewModels.Post
         public string? ImagePath { get; set; }
 
         public int? UserId { get; set; }
-        public DateTime Created { get; set; }
+        public string? Created { get; set; }
 
         public ICollection<CommentViewModel>? Comments { get; set; }
 
