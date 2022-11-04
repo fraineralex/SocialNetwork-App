@@ -128,21 +128,32 @@
             <ul class="">
                 @if (Model.Count != 0 || Model != null)
                 {
-                    @foreach (PostViewModel post in Model)
+                    var friendList = (from post in Model
+                    group post by new { post.Users } into g
+                    select new UserViewModel()
+                    { 
+                        Id = g.Key.Users.Id,
+                        Name = g.Key.Users.Name,
+                        LastName = g.Key.Users.LastName,
+                        ProfileImage = g.Key.Users.ProfileImage,
+                        Username = g.Key.Users.Username,
+                    }).ToList();
+
+                    @foreach (UserViewModel user in friendList)
                     {
                         <li>
                             <div class="imgNameButton">
                                 <a href="">
                                     <div class="imgName">
-                                        <img src="@post.Users.ProfileImage" alt="profile @post.Users.Name" class="imgFriendList">
+                                        <img src="@user.ProfileImage" alt="profile @user.Name" class="imgFriendList">
                                         <p>
-                                            @post.Users.Name @post.Users.LastName
-                                            <br/>@post.Users.Username
+                                            @user.Name @user.LastName
+                                            <br />@user.Username
                                         </p>
                                     </div>
                                 </a>
                                 <div class="">
-                                    <a type="button" id="delete-friend" onclick="DeleteConfirm(@post.Users.Id)" class="btn btn-sm btn-danger">
+                                    <a type="button" id="delete-friend" onclick="DeleteConfirm(@user.Id)" class="btn btn-sm btn-danger">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                             class="bi bi-trash-fill" viewBox="0 0 16 16">
                                             <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
