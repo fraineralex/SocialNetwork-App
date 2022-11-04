@@ -98,9 +98,8 @@
                                     {
                                         <p class="text-white float-end mt-3">
                                             <small>
-                                                <a asp-controller="AdminPosts" asp-action="AddComment" asp-route-id="@post.Id" class="text-reset">
-                                                    Ver todos los
-                                                    comentarios
+                                                <a asp-controller="AdminPosts" asp-action="AddComment" asp-route-id="@post.Id" asp-route-place="friend" class="text-reset">
+                                                    See all comments
                                                 </a>
                                             </small>
                                         </p>
@@ -113,7 +112,7 @@
             }
             @if (Model.Count == 0)
             {
-                <h5 class="fs-4 fw-bold text-secondary ms-5">📷 No posts yet</h5>
+                <h5 class="fs-4 fw-bold text-secondary ms-5">📷 Your friends don't have posts yet.</h5>
             }
         </div>
     </div>

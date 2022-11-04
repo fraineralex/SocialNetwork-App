@@ -40,6 +40,7 @@ namespace SocialNetwork.Core.Application.Mappings
 
 
             CreateMap<Comments, SaveCommentViewModel>()
+                .ForMember(x => x.Created, opt => opt.MapFrom(src => ((DateTime)src.Created).ToString("d/M/yyyy hh:mm")))
                 .ReverseMap()
                 .ForMember(x => x.CreateBy, opt => opt.Ignore())
                 .ForMember(x => x.LastModifiedBy, opt => opt.Ignore())
