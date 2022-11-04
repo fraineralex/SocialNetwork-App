@@ -36,6 +36,7 @@ namespace SocialNetwork.Presentation.WebApp.Controllers
                 return RedirectToRoute(new { controller = "User", action = "Index" });
             }
             ViewBag.Page = "friend";
+            ViewBag.FriendList = await _friendsService.GetAllFriendViewModel();
             return View("Friends", await _friendsService.GetAllViewModelWithInclude());
         }
 

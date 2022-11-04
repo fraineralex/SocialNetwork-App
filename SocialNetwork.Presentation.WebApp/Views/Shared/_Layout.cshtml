@@ -4,6 +4,23 @@
 @{
     UserViewModel User = httpContext.HttpContext.Session.Get<UserViewModel>("user");
 }
+@{
+    bool homePage = false, friendPage = false;
+
+    switch (ViewBag.Page)
+    {
+        case "home":
+            {
+                homePage = true;
+                break;
+            }
+        case "friend":
+            {
+                friendPage = true;
+                break;
+            }
+    }
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,8 +43,7 @@
     {
         <div class="sidebar">
             <div class="logo-details">
-                <i class='bx bx-notepad icon'></i>
-                <div class="logo_name">Social Network</div>
+                <div class="logo_name">👨🏻‍🚀 Social Network</div>
                 <i class='bx bx-menu' id="btn"></i>
             </div>
 
@@ -37,25 +53,18 @@
                 <span class="custom-tooltip">Search</span>
             </li>
             <li>
-                <a asp-controller="Home" asp-action="Index" class="bg-light">
-                    <i class='bx bx-home-alt text-dark'></i>
-                    <span class="links_name text-dark">Home</span>
+                <a asp-controller="Home" asp-action="Index" class="@(homePage ? "bg-light" : "" )">
+                    <i class='bx bx-home-alt @(homePage ? "text-dark" : "" )'></i>
+                    <span class="links_name @(homePage ? "text-dark" : "" )">Home</span>
                 </a>
                 <span class="custom-tooltip">Home</span>
             </li>
             <li>
-                <a asp-controller="AdminFriends" asp-action="Index" class="">
-                    <i class='bx bx-check-square'></i>
-                    <span class="links_name">Friends</span>
+                <a asp-controller="AdminFriends" asp-action="Index" class="@(friendPage ? "bg-light" : "" )">
+                    <i class='bx bxs-group @(friendPage ? "text-dark" : "" )'></i>
+                    <span class="links_name @(friendPage ? "text-dark" : "" )">Friends</span>
                 </a>
                 <span class="custom-tooltip">Friends</span>
-            </li>
-            <li>
-                <a asp-controller="User" asp-action="ProfileSettings" class="">
-                    <i class='bx bx-user'></i>
-                    <span class="links_name">Profile</span>
-                </a>
-                <span class="custom-tooltip">Profile</span>
             </li>
             <li class="profile">
                 <span class="custom-tooltip">Search</span>
@@ -63,7 +72,7 @@
                     <img src="@User.ProfileImage" alt="profileImg">
                     <div class="name_job">
                         <div class="name"><small>@User.Name @User.LastName</small></div>
-                        <div class="job">@User.Username</div>
+                        <div class="job">👨🏻‍🚀 @@@User.Username</div>
                     </div>
                 </div>
                 <a asp-controller="User" asp-action="Logout"><i class='bx bx-log-out' id="log_out"></i></a>

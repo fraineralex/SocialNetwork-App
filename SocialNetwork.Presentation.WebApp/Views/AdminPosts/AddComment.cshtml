@@ -18,7 +18,7 @@
                 <span class="d-image">
                     <img src="/Images/profile.jpg" class="me-2 mt-1" alt="profile">
                 </span>
-                <small class="me-auto fs-6 text-white"><strong>frainer.alex</strong></small>
+                <small class="me-auto fs-6 text-white"><strong>@Model.Users.Name @Model.Users.LastName</strong></small>
                 <small class="float-end fw-light text-white mt-2">@Model.Created</small>
             </div>
             <div class="card-body">
@@ -41,9 +41,9 @@
                                     <img src="@comment.Users.ProfileImage" class=" me-2"
                                 alt="profile">
                                 </span>
-                                <small class="me-auto fw-light">@comment.Users.Username</small>
+                                <small class="me-auto fw-light">@comment.Users.Name @comment.Users.LastName</small>
                                 <small class="float-end fw-light text-white">
-                                    1 hour ago
+                                    @comment.Created
                                 </small>
                             </div>
                             <div class="card-body">

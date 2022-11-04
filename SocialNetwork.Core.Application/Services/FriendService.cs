@@ -14,17 +14,19 @@ namespace SocialNetwork.Core.Application.Services
     {
         private readonly IFriendsRepository _friendsRepository;
         private readonly IPostsService _postsService;
+        private readonly IUsersService _usersService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly UserViewModel userViewModel;
         private readonly IMapper _mapper;
 
-        public FriendService(IFriendsRepository friendsRepository, IHttpContextAccessor httpContextAccessor, IMapper mapper, IPostsService postsService) : base(friendsRepository, mapper)
+        public FriendService(IFriendsRepository friendsRepository, IHttpContextAccessor httpContextAccessor, IMapper mapper, IPostsService postsService, IUsersService usersService) : base(friendsRepository, mapper)
         {
             _friendsRepository = friendsRepository;
             _httpContextAccessor = httpContextAccessor;
             userViewModel = _httpContextAccessor.HttpContext.Session.Get<UserViewModel>("user");
             _mapper = mapper;
             _postsService = postsService;
+            _usersService = usersService;
         }
 
         public async Task<List<PostViewModel>> GetAllViewModelWithInclude()
@@ -45,6 +47,23 @@ namespace SocialNetwork.Core.Application.Services
             }
 
             return postVmList;
+        }
+
+        public async Task<List<UserViewModel>> GetAllFriendViewModel()
+        {
+            var friendList = await _friendsRepository.GetAllAsync();
+
+            List<UserViewModel> userVieModelList = new();
+
+            foreach (var friend in friendList.Where(friend => friend.SenderId == userViewModel.Id).ToList())
+            {
+
+                UserViewModel user = await _usersService.GetUserViewModelById(friend.ReceptorId);
+
+                userVieModelList.Add(user);
+            }
+
+            return userVieModelList;
         }
 
         public async Task<bool> CheckIfAreFriend(int SenderId, int ReceptorId)

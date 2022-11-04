@@ -87,7 +87,7 @@ namespace SocialNetwork.Core.Application.Services
 
         public async Task<UserViewModel> GetUserViewModelById(int id)
         {
-            var userList = await _userRepository.GetAllWithIncludeAsync(new List<string> { "Posts", "Comments" });
+            var userList = await _userRepository.GetAllAsync();
 
             UserViewModel userVm = _mapper.Map<UserViewModel>(userList.Where(user => user.Id == id).FirstOrDefault());
 

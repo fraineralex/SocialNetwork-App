@@ -1,4 +1,5 @@
-﻿using SocialNetwork.Core.Application.ViewModels.Friend;
+﻿using SocialNetwork.Core.Application.ViewModels.Auth;
+using SocialNetwork.Core.Application.ViewModels.Friend;
 using SocialNetwork.Core.Application.ViewModels.Post;
 using SocialNetwork.Core.Domain.Entities;
 
@@ -9,5 +10,7 @@ namespace SocialNetwork.Core.Application.Interfaces.Services
         Task<List<PostViewModel>> GetAllViewModelWithInclude();
         Task<bool> CheckIfAreFriend(int SenderId, int ReceptorId);
         Task<Friends> GetFriendByReceptor(int ReceptorId);
+
+        Task<List<UserViewModel>> GetAllFriendViewModel();
     }
 }

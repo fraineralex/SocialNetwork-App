@@ -47,6 +47,7 @@ namespace SocialNetwork.Presentation.WebApp.Controllers
 
             if (!ModelState.IsValid)
             {
+                ViewBag.Page = "home";
                 return View("SavePost", SaveViewModel);
             }
 
@@ -104,6 +105,7 @@ namespace SocialNetwork.Presentation.WebApp.Controllers
 
             if (!ModelState.IsValid)
             {
+                ViewBag.Page = "home";
                 return View("SavePost", vm);
             }
 
