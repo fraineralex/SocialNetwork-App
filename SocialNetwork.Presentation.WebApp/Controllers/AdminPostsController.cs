@@ -62,7 +62,7 @@ namespace SocialNetwork.Presentation.WebApp.Controllers
             
         }
         [HttpPost]
-        public async Task<IActionResult> CreatePost(String Content)
+        public async Task<IActionResult> CreatePost(string Content)
         {
             if (!_validateUserSession.HasUser())
             {

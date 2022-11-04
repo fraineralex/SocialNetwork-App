@@ -36,9 +36,9 @@ namespace SocialNetwork.Core.Application.Services
                 To = vm.Email,
                 Subject = "Your Social Network App account has been created!\r\n",
                 Body = $"<h1>Welcome to Social Network App 👨🏻‍🚀</h1>" +
-                $"<p>Hi {vm.Name} {vm.LastName} 😃,\r\n\r\n" +
-                $"Thanks for creating an account on Social Network App. Your username is <strong>{vm.Username}</strong>.</p>" +
-                $"<p>Click the following link to active your account ➡️ <a href='http://localhost:7050/User/ActiveAccount/{vm.Username}'>ACTIVAR ✅</a></p>"
+                $"<p>Hi {vm.Name} {vm.LastName} 😃,</p>" +
+                $"<p>Thanks for creating an account on Social Network App. Your username is <strong>{vm.Username}</strong>.</p>" +
+                $"<p>Click the following link to active your account  👉🏻  <a style='color: black; text-decoration-line: none;' href='https://localhost:7050/User/ActiveAccount?username={vm.Username}'> <strong> ACTIVAR ✅</strong></a></p>"
 
            });
 

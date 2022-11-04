@@ -167,51 +167,52 @@ namespace SocialNetwork.Controllers
             }
         }
 
-        public async Task<IActionResult> RestorePassword(string username)
+        [HttpPost]
+        public async Task<IActionResult> RestorePassword(string Username)
         {
             if (_validateUserSession.HasUser())
             {
                 return RedirectToRoute(new { controller = "Home", action = "Index" });
             }
 
-            if (username == null)
+            if (Username == null)
             {
                 return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
             }
+            
+            
+            SaveUserViewModel user = await _userService.GetAUserByUsernameAsync(Username);
+
+            if (user != null)
+            {
+                string newPassword = $"{user.Username}#{user.Id}".ToLower();
+                user.Password = PasswordEncryption.ComputeSha256Hash(newPassword);
+                await _userService.Update(user, user.Id);
+
+                await _emailService.SendAsync(new EmailRequest
+                {
+                    To = user.Email,
+                    Subject = "Your Social Network App password has been updated!\r\n",
+                    Body = $"<h1>Welcome back to Social Network App 👨🏻‍🚀</h1>" +
+                    $"<p>Hi {user.Name} {user.LastName},</p>" +
+                    $"<p>Your password has been updated successfully. Your new password is <strong>{newPassword}</strong></p>" +
+                    $"<p>Please try to don't forget your password again and log back in to Social Network App</p>" +
+                    $"<p>Click the following link to redirect you to the Login page again 👉🏻 <a style='color: black; text-decoration-line: none;' href='http://localhost:7050/'> <strong> LOGIN 🏠</strong></a></p>"
+
+                });
+
+                ModelState.TryAddModelError("ActiveSuccess", $"✅ Your password has been successfully updated, check your email to get it.");
+                ViewBag.Page = "login";
+                return View("login");
+
+            }
             else
             {
-                SaveUserViewModel user = await _userService.GetAUserByUsernameAsync(username);
-
-                if (user != null)
-                {
-                    string newPassword = $"{user.Username}#{user.Id}".ToLower();
-                    user.Password = PasswordEncryption.ComputeSha256Hash(newPassword);
-                    await _userService.Update(user, user.Id);
-
-                    await _emailService.SendAsync(new EmailRequest
-                    {
-                        To = user.Email,
-                        Subject = "Your Social Network App password has been updated!\r\n",
-                        Body = $"<h1>Welcome back to Social Network App 👨🏻‍🚀</h1>" +
-                        $"<p>Hi {user.Name} {user.LastName} 😃,\r\n\r\n" +
-                        $"Your password has been updated successfully. Your new password now is <strong>{newPassword}</strong>.</p>" +
-                        $"Please try to don't forget again your password and log back in to Social Network App." +
-                        $"<p>Click the following link to redirect you to the Login page again ➡️ <a href='http://localhost:7050'>LOGIN 🏠</a></p>"
-
-                    });
-
-                    ModelState.TryAddModelError("ActiveSuccess", $"✅ Your password has been successfully updated");
-                    ViewBag.Page = "login";
-                    return View("login");
-
-                }
-                else
-                {
-                    ModelState.TryAddModelError("ActiveError", $"❌ No account was found for the user '{username}'");
-                    ViewBag.Page = "login";
-                    return View("login");
-                }
+                ModelState.TryAddModelError("ActiveError", $"❌ No account was found for the user '{Username}'");
+                ViewBag.Page = "login";
+                return View("login");
             }
+            
         }
     }
 }

@@ -6,6 +6,7 @@ using SocialNetwork.Core.Application.Interfaces.Services;
 using SocialNetwork.Core.Application.Services;
 using SocialNetwork.Core.Application.ViewModels.Auth;
 using SocialNetwork.Core.Application.ViewModels.Comment;
+using SocialNetwork.Core.Application.ViewModels.Post;
 using SocialNetwork.Core.Domain.Entities;
 
 namespace EMarketApp.Core.Application.Services
@@ -41,6 +42,13 @@ namespace EMarketApp.Core.Application.Services
 
             }).ToList();
         }
+
+        public override async Task<SaveCommentViewModel> Add(SaveCommentViewModel vm)
+        {
+            vm.Created = DateTime.Now;
+            return await base.Add(vm);
+        }
+
 
     }
 

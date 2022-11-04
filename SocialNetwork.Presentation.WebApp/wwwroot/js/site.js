@@ -3,8 +3,8 @@
 restorePassBtn.addEventListener("click", async () => {
   const { value: username } = await Swal.fire({
     title: "Input your username to restore your password",
-      html: `<form method="POST" asp-controller="User" asp-action="RestorePassword" id="frm-restore-password"> 
-          <input id="content" type="text" class="form-control border-secondary border border-2"  placeholder="Enter your username" name="username" required>
+      html: `<form method="post" action="User/RestorePassword" id="frm-restore-password"> 
+          <input id="content" type="text" class="form-control border-secondary border border-2" placeholder="Enter your username" name="Username" required>
           </form>`,
     showCancelButton: true,
     focusConfirm: false,

@@ -47,6 +47,7 @@ namespace SocialNetwork.Core.Application.Services
         public override async Task<SavePostViewModel> Add(SavePostViewModel vm)
         {
             vm.UserId = userViewModel.Id;
+            vm.Created = DateTime.Now;
 
             return await base.Add(vm);
         }

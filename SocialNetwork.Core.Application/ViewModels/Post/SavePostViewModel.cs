@@ -21,6 +21,8 @@ namespace SocialNetwork.Core.Application.ViewModels.Post
 
         public IFormFile? ImageFile { get; set; }
 
+        public DateTime? Created { get; set; }
+
     }
 
 }
