@@ -22,3 +22,28 @@ restorePassBtn.addEventListener("click", async () => {
     }
   }
 });
+
+function DeleteConfirm(friendId) {
+    Swal.fire({
+        title: `Are you sure you want to delete this friend?`,
+        text: "Once it has been deleted it cannot be recovered.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Delete",
+        reverseButtons: true,
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire("Deleted!", `Friend successfully deleted!`, "success");
+
+            setTimeout(() => {
+                let form = document.createElement("form");
+                form.action = `AdminFriends/DeleteFriend?receptorId=${friendId}`;
+                form.method = "POST";
+                document.body.append(form);
+                form.submit();
+            }, 2000);
+        }
+    });
+}

@@ -52,50 +52,53 @@
                                     <img src="@post.Users.ProfileImage" class="me-2 mt-1" alt="profile">
                                 </span>
                                 <small class="me-auto fs-6 text-white"><strong>@post.Users.Username</strong></small>
-                                <small class="float-end fw-light text-white mt-2">Hace 2 minutos</small>
+                                <small class="float-end fw-light text-white mt-2">@post.Created</small>
                             </div>
                             <div class="card-body">
                                 <br><small class="fAs-6 text-white">@post.Content</small>
                                 @if (post.ImagePath != null)
                                 {
-                                    <div class="text-center mt-2 post-image">
+                                    <div class="text-center mt-2 post-image mb-3">
                                         <img src="@post.ImagePath" class="img-fluid" alt="image">
                                     </div>
                                 }
+                                <div class="mb-5">
+
+                                    <a type="button" class="btn btn-sm btn-primary float-end" asp-controller="AdminPosts" asp-action="AddComment" asp-route-id="@post.Id" asp-route-place="friends">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="25" fill="currentColor"
+                                             class="bi bi-chat-text-fill" viewBox="0 0 16 16">
+                                            <path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM4.5 5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4z" />
+                                        </svg>
+                                        Comment
+                                    </a>
+                                </div>
 
                                 @if (post.Comments.Count != 0)
                                 {
-                                    <div class="card bg-secondary bg-opacity-25 text-white mt-5" aria-live="assertive"
-                                        aria-atomic="true" style="width: 60%;">
-                                        <div class="card-header " style="height: 40px;">
-                                            <span class="r-image">
-                                                <img src="@post.Comments.First().Users.ProfileImage" class=" me-2"
-                                    alt="profile">
-                                            </span>
-                                            <small class="me-auto fw-light">@post.Comments.First().Users.Username</small>
-                                            <small class="float-end fw-light text-white">
-                                                Justo ahora
-                                            </small>
-                                        </div>
-                                        <div class="card-body">
-                                            <small class="fw-light">@post.Comments.First().Content</small>
+                                    <div class="py-1">
+                                        <div class="card bg-secondary bg-opacity-25 text-white mt-3" aria-live="assertive"
+                                             aria-atomic="true" style="width: 80%;">
+                                            <div class="card-header " style="height: 40px;">
+                                                <span class="r-image">
+                                                    <img src="@post.Comments.First().Users.ProfileImage" class=" me-2"
+                                             alt="profile">
+                                                </span>
+                                                <small class="me-auto fw-light">@post.Comments.First().Users.Username</small>
+                                                <small class="float-end fw-light text-white">
+                                                    @post.Comments.First().Created
+                                                </small>
+                                            </div>
+                                            <div class="card-body">
+                                                <small class="fw-light">@post.Comments.First().Content</small>
 
-                                            <a type="button" class="btn-sm btn-primary float-end ms-1">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="25" fill="currentColor"
-                                    class="bi bi-chat-text-fill" viewBox="0 0 16 16">
-                                                    <path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM4.5 5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4z" />
-                                                </svg>
-                                            </a>
+                                                <a type="button" class="btn-sm btn-primary float-end ms-1">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="25" fill="currentColor"
+                                                        class="bi bi-chat-text-fill" viewBox="0 0 16 16">
+                                                        <path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM4.5 5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4z" />
+                                                    </svg>
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="mt-0 float-end">
-                                        <a type="button" class="btn btn-primary float-end" asp-controller="AdminPosts" asp-action="AddComment" asp-route-id="@post.Id" asp-route-place="friends">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="25" fill="currentColor"
-                                     class="bi bi-chat-text-fill" viewBox="0 0 16 16">
-                                                <path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM4.5 5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4z" />
-                                            </svg>
-                                            Comment
-                                        </a>
                                     </div>
                                     if (post.Comments.Count > 1)
                                     {
@@ -139,7 +142,7 @@
                                     </div>
                                 </a>
                                 <div class="">
-                                    <a type="button" asp-controller="AdminFriends" asp-action="DeleteFriend" asp-route-receptorId="@post.Users.Id" class="btn btn-sm btn-danger">
+                                    <a type="button" id="delete-friend" onclick="DeleteConfirm(@post.Users.Id)" class="btn btn-sm btn-danger">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                             class="bi bi-trash-fill" viewBox="0 0 16 16">
                                             <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />

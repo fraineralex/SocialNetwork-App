@@ -38,7 +38,7 @@ namespace EMarketApp.Core.Application.Services
                 Id = comment.Id,
                 Content = comment.Content,
                 UserId = comment.UserId,
-                Created = comment.Created,
+                Created = comment.Created.ToString("d/M/yyyy hh:mm"),
                 Users = _mapper.Map<UserViewModel>(comment.Users)
 
             }).ToList();
@@ -46,7 +46,7 @@ namespace EMarketApp.Core.Application.Services
 
         public override async Task<SaveCommentViewModel> Add(SaveCommentViewModel vm)
         {
-            vm.Created = vm.Created = DateTime.Now.ToString("d/M/yyyy hh:mm:ss");
+            vm.Created = vm.Created = DateTime.Now.ToString();
             return await base.Add(vm);
         }
 

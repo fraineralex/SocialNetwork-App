@@ -201,9 +201,6 @@ namespace SocialNetwork.Presentation.WebApp.Controllers
                 return RedirectToRoute(new { controller = "AdminFriends", action = "Index" });
             }
 
-
-            
-
         }
 
     }

@@ -61,7 +61,7 @@ namespace EMarketApp.Core.Application.Services
         {
             var friendList = await _friendsRepository.GetAllAsync();
 
-            var friendVm = friendList.Where(friend => friend.SenderId == userViewModel.Id && friend.ReceptorId == ReceptorId).FirstOrDefault();
+            var friendVm = friendList.Where(friend => friend.SenderId == userViewModel.Id && friend.ReceptorId == ReceptorId).First();
 
             return _mapper.Map<FriendViewModel>(friendVm);
         }

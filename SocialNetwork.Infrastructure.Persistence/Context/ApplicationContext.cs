@@ -20,7 +20,7 @@ namespace SocialNetwork.Infrastructure.Persistence.Context
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        entry.Entity.Created = DateTime.Now.ToString("d/M/yyyy hh:mm");
+                        entry.Entity.Created = DateTime.Now;
                         entry.Entity.CreateBy = "SocialNetworkApp";
                         break;
 

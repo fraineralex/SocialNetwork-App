@@ -38,7 +38,7 @@ namespace SocialNetwork.Core.Application.Services
                 Content = post.Content,
                 ImagePath = post.ImagePath,
                 UserId = post.UserId,
-                Created = post.Created,
+                Created = post.Created.ToString("d/M/yyyy hh:mm"),
                 Comments = _mapper.Map<ICollection<CommentViewModel>>(post.Comments),
                 Users = _mapper.Map<UserViewModel>(post.Users)
 
@@ -48,7 +48,7 @@ namespace SocialNetwork.Core.Application.Services
         public override async Task<SavePostViewModel> Add(SavePostViewModel vm)
         {
             vm.UserId = userViewModel.Id;
-            vm.Created = DateTime.Now.ToString("d/M/yyyy hh:mm:ss");
+            vm.Created = DateTime.Now.ToString();
 
             return await base.Add(vm);
         }
