@@ -70,6 +70,13 @@ namespace SocialNetwork.Presentation.WebApp.Controllers
 
             if (user != null)
             {
+                if (user.Username == userViewModel.Username)
+                {
+                    ModelState.AddModelError("userVaidation", "you can't add your self in your friend list, try another user.");
+                    ViewBag.Page = "friend";
+                    return View("AddFriend", AddFriendVm);
+                }
+
                 if (user.IsActive == false)
                 {
                     ModelState.AddModelError("userVaidation", "This account is desatived, try another user.");
@@ -114,7 +121,7 @@ namespace SocialNetwork.Presentation.WebApp.Controllers
                 return RedirectToRoute(new { controller = "User", action = "Index" });
             }
 
-            var friend = _friendsService.GetFriendByReceptor(receptorId);
+            var friend = await _friendsService.GetFriendByReceptor(receptorId);
 
             if(friend != null)
             {

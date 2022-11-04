@@ -2,7 +2,6 @@
 using SocialNetwork.Core.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using EMarketApp.Core.Application.Services;
 
 namespace SocialNetwork.Core.Application
 {

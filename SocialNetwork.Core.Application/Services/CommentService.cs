@@ -9,7 +9,7 @@ using SocialNetwork.Core.Application.ViewModels.Comment;
 using SocialNetwork.Core.Application.ViewModels.Post;
 using SocialNetwork.Core.Domain.Entities;
 
-namespace EMarketApp.Core.Application.Services
+namespace SocialNetwork.Core.Application.Services
 {
     public class CommentService : GenericService<SaveCommentViewModel, CommentViewModel, Comments>, ICommentsService
     {

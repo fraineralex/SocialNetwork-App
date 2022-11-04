@@ -3,13 +3,12 @@ using Microsoft.AspNetCore.Http;
 using SocialNetwork.Core.Application.Helpers;
 using SocialNetwork.Core.Application.Interfaces.Repositories;
 using SocialNetwork.Core.Application.Interfaces.Services;
-using SocialNetwork.Core.Application.Services;
 using SocialNetwork.Core.Application.ViewModels.Auth;
 using SocialNetwork.Core.Application.ViewModels.Friend;
 using SocialNetwork.Core.Application.ViewModels.Post;
 using SocialNetwork.Core.Domain.Entities;
 
-namespace EMarketApp.Core.Application.Services
+namespace SocialNetwork.Core.Application.Services
 {
     public class FriendService : GenericService<SaveFriendViewModel, FriendViewModel, Friends>, IFriendsService
     {
@@ -57,13 +56,13 @@ namespace EMarketApp.Core.Application.Services
             return areFriend.Count != 0;
         }
 
-        public async Task<FriendViewModel> GetFriendByReceptor(int ReceptorId)
+        public async Task<Friends> GetFriendByReceptor(int ReceptorId)
         {
             var friendList = await _friendsRepository.GetAllAsync();
 
             var friendVm = friendList.Where(friend => friend.SenderId == userViewModel.Id && friend.ReceptorId == ReceptorId).First();
 
-            return _mapper.Map<FriendViewModel>(friendVm);
+            return friendVm;
         }
         
 
